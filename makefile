@@ -1,4 +1,4 @@
-.PHONY: build format list packpath
+.PHONY: build format list packpath run_from_git
 
 build:
 	nix build .#neovim
@@ -15,3 +15,5 @@ run:
 packpath:
 	nix build .#neovim.packpath
 
+run_from_git:
+	nix run github:handdara/nix-vimrc --refresh
