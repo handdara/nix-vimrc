@@ -56,7 +56,6 @@ if require 'mini.files' then
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesExplorerOpen',
         callback = function ()
-            set_mark('c', vim.fn.stdpath('config'), 'Neovim cfg dir')
             set_mark('c', vim.fn.getcwd, 'Working dir')
             set_mark('~', '~', 'Home dir')
         end,
