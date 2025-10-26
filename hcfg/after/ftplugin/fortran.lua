@@ -1,0 +1,6 @@
+vim.cmd [[let fortran_free_source=1]]
+-- vim.cmd [[let fortran_more_precise=1]]
+vim.cmd [[let fortran_do_enddo=1]]
+-- vim.cmd [[let fortran_indent_more=1]]
+vim.cmd [[filetype plugin indent on]]
+vim.cmd [[syntax on]]
