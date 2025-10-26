@@ -1,5 +1,5 @@
-vim.cmd [[colo boo]]
--- vim.cmd [[colo forest_stream]]
+-- vim.cmd [[colo boo]]
+vim.cmd [[colo forest_stream]]
 -- vim.cmd [[colo eva01]]
 -- vim.cmd [[colo paper]]
 
