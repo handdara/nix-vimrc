@@ -1,5 +1,7 @@
 local map = vim.keymap.set
 
+ma
+
 return function()
     map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }) -- space is my leader key
     -- map({ 'n', 'x' }, ';', ':', { silent = true })

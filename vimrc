@@ -7,6 +7,7 @@ endif
 set path+=**
 set tabstop=4 softtabstop=4 shiftwidth=4
 set scrolloff=5
+set signcolumn=yes
 set formatoptions-=t
 filetype plugin indent on
 syntax on

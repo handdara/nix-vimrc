@@ -31,8 +31,8 @@ if require 'mini.files' then
             width_preview = 90,
         },
     })
-    vim.keymap.set('n', '<leader>o', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, { desc = '[O]pen file browser at current file' })
-    vim.keymap.set('n', '<leader>go', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
+    vim.keymap.set('n', '<leader>go', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, { desc = '[O]pen file browser at current file' })
+    vim.keymap.set('n', '<leader>o', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesWindowOpen',
         callback = function(args)
@@ -156,3 +156,51 @@ if require('obsidian') then
         },
     }
 end
+
+require'blink.cmp'.setup {
+    enabled = function() return not vim.tbl_contains({ }, vim.bo.filetype) end,
+    snippets = { preset = 'luasnip' },
+    keymap = {
+        preset = 'none',
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide', 'fallback' },
+        ['<C-y>'] = { 'select_and_accept', 'fallback' },
+        ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+        ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+    }
+}
+
+-- local capabilities = require('blink.cmp').get_lsp_capabilities()
+-- -- lspconfig['nil_ls'].setup({ capabilities = capabilities })
+vim.lsp.enable('nil_ls')
+vim.lsp.enable('lua_ls')
+
+if pcall(function() return require'luasnip' end) then
+    local ls = require 'luasnip' 
+    vim.keymap.set({"i"}, "<C-j>", function() 
+        if ls.expandable() then
+            ls.expand()
+        else
+            if ls.jumpable(1) then ls.jump(1) end
+        end
+    end, {silent = true})
+    vim.keymap.set({"i", "s"}, "<C-k>", function() 
+        if ls.jumpable(-1) then ls.jump(-1) end
+    end, {silent = true})
+    vim.keymap.set({"i", "s"}, "<C-h>", function()
+        if ls.choice_active() then
+            ls.change_choice(-1)
+        end
+    end, {silent = true})
+    vim.keymap.set({"i", "s"}, "<C-l>", function()
+        if ls.choice_active() then
+            ls.change_choice(1)
+        end
+    end, {silent = true})
+end
+
+require 'hcfg.snippets.all'
+

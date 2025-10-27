@@ -6,23 +6,51 @@
   symlinkJoin,
   version,
   vimPlugins,
+  python3,
+  gcc,
+  gnumake,
+  pkg-config,
+  nodejs_20,
+  luajitPackages,
 }:
 let
 
-  startPlugins = [
-    vimPlugins.fzf-lua
-    vimPlugins.mini-files
-    vimPlugins.nvim-surround
-    vimPlugins.nvim-treesitter.withAllGrammars
-    vimPlugins.nvim-web-devicons
-    vimPlugins.obsidian-nvim
-    vimPlugins.undotree
-    # colorthemes
-    vimPlugins.eva01-vim
-    vimPlugins.rose-pine
-    vimPlugins.vim-paper
-    vimPlugins.boo-colorscheme-nvim
+  tsParsers = with vimPlugins.nvim-treesitter-parsers; [
+    asm        gnuplot perl
+    awk        haskell python
+    bibtex     html    r
+    cmake      ini     regex
+    cpp        jq      rust
+    css        json    sql
+    csv        just    tcl
+    fish       kdl     tmux
+    fortran    latex   typst
+    gitcommit  luadoc  yaml
+    git_rebase make    zig
+    gitignore  nix     
   ];
+  
+  colorthemes = with vimPlugins; [ 
+    eva01-vim
+    rose-pine
+    vim-paper
+    boo-colorscheme-nvim
+  ];
+
+  plugins = with vimPlugins; [
+    fzf-lua
+    mini-files
+    nvim-surround
+    nvim-lspconfig
+    nvim-treesitter
+    nvim-web-devicons
+    obsidian-nvim
+    undotree
+    luasnip
+    blink-cmp
+  ];
+
+  startPlugins = tsParsers ++ colorthemes ++ plugins;
 
   packageName = "nix-neovimrc";
   packpath = runCommandLocal "packpath" { } ''
@@ -33,13 +61,22 @@ let
     ) startPlugins}
   '';
 
+  pathAdditions = [  
+    gcc 
+    gnumake
+    pkg-config 
+    python3 
+    nodejs_20 
+    luajitPackages.jsregexp 
+  ];
 in
 symlinkJoin {
-  name = "nvim";
+  name = "nvim-${version}";
   paths = [ neovim-unwrapped ];
   nativeBuildInputs = [ makeWrapper ];
   postBuild = ''
     wrapProgram $out/bin/nvim \
+      --prefix PATH : ${lib.makeBinPath pathAdditions} \
       --add-flags '-u' \
       --add-flags '${./vimrc}' \
       --add-flags '--cmd' \
