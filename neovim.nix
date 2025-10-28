@@ -38,16 +38,17 @@ let
   ];
 
   plugins = with vimPlugins; [
+    blink-cmp
     fzf-lua
+    gitsigns-nvim
+    luasnip
     mini-files
-    nvim-surround
     nvim-lspconfig
+    nvim-surround
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
     undotree
-    luasnip
-    blink-cmp
   ];
 
   startPlugins = tsParsers ++ colorthemes ++ plugins;
@@ -78,7 +79,7 @@ symlinkJoin {
     wrapProgram $out/bin/nvim \
       --prefix PATH : ${lib.makeBinPath pathAdditions} \
       --add-flags '-u' \
-      --add-flags '${./vimrc}' \
+      --add-flags '${./dot-vimrc}' \
       --add-flags '--cmd' \
       --add-flags "'set packpath^=${packpath} | set runtimepath^=${packpath}'" \
       --set-default NVIM_APPNAME nvim-custom

@@ -1,5 +1,5 @@
 ---@diagnostic disable: unused-local
-require('luasnip.session.snippet_collection').clear_snippets "all"
+require('luasnip.session.snippet_collection').clear_snippets "matlab"
 local ls = require 'luasnip'
 local s = ls.snippet
 local sn = ls.snippet_node
@@ -17,21 +17,4 @@ local function use(...)
     table.insert(S, s(...))
 end
 
-local function mkdatenode(fmtstr)
-    return f(function() 
-        return os.date(fmtstr) 
-    end)
-end
-
-use("day", {mkdatenode('%F')})
-use("tim", c(1, {
-    mkdatenode('%H%M'),
-    mkdatenode('%H:%M'),
-    mkdatenode('%H:%M:%S'),
-}))
-use("now", c(1, {
-    mkdatenode('%F %H%M'),
-    mkdatenode('%s'),
-}))
-
-ls.add_snippets("all", S)
+ls.add_snippets("matlab", S)

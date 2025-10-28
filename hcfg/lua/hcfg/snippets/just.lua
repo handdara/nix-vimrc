@@ -20,7 +20,7 @@ local bBash = [[
     hello='Yo'
     echo "$hello from Bash!"
 ]]
-local sBash = s('bash-recipe', fmt(bBash, {
+local sBash = s('bash', fmt(bBash, {
     i(1, 'name'),
 }))
 

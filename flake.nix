@@ -46,20 +46,5 @@
           environment.systemPackages = [ pkgs.neovim ];
         };
 
-      # checks = forAllSystems (
-      #   system: with nixpkgsFor.${system}; {
-      #     inherit (self.packages.${system}) neovim;
-      #     test = stdenv.mkDerivation {
-      #       name = "neovim-test-${version}";
-      #       buildInputs = [ neovim ];
-      #       unpackPhase = "true";
-      #       buildPhase = ''
-      #         echo 'running some integration tests'
-      #         [[ $(hello) = 'Hello Nixers!' ]]
-      #       '';
-      #       installPhase = "mkdir -p $out";
-      #     };
-      #   }
-      # );
     };
 }
