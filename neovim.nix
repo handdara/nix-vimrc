@@ -48,6 +48,7 @@ let
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
+    plenary-nvim
     undotree
   ];
 
@@ -72,7 +73,8 @@ let
   ];
 in
 symlinkJoin {
-  name = "nvim-${version}";
+  pname = "nvim";
+  inherit version;
   paths = [ neovim-unwrapped ];
   nativeBuildInputs = [ makeWrapper ];
   postBuild = ''
@@ -86,5 +88,10 @@ symlinkJoin {
   '';
   passthru = {
     inherit packpath;
+  };
+  meta = {
+    description = "handdara nix-wrapped and configured neovim";
+    homepage = "https://github.com/handdara/nix-vimrc";
+    mainProgram = "nvim";
   };
 }
