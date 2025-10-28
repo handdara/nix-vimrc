@@ -1,17 +1,19 @@
 {
   lib,
+  fetchFromGitHub,
+  gcc,
+  gnumake,
+  luajitPackages,
   makeWrapper,
   neovim-unwrapped,
+  nodejs_20,
+  pkg-config,
+  python3,
   runCommandLocal,
   symlinkJoin,
   version,
   vimPlugins,
-  python3,
-  gcc,
-  gnumake,
-  pkg-config,
-  nodejs_20,
-  luajitPackages,
+  vimUtils,
 }:
 let
 
@@ -21,13 +23,13 @@ let
     bibtex     html    r
     cmake      ini     regex
     cpp        jq      rust
-    css        json    sql
-    csv        just    tcl
-    fish       kdl     tmux
-    fortran    latex   typst
-    gitcommit  luadoc  yaml
-    git_rebase make    zig
-    gitignore  nix     
+    css        json    supercollider
+    csv        just    sql
+    fish       kdl     tcl
+    fortran    latex   tmux
+    gitcommit  luadoc  typst
+    git_rebase make    yaml
+    gitignore  nix     zig
   ];
   
   colorthemes = with vimPlugins; [ 
@@ -50,6 +52,15 @@ let
     obsidian-nvim
     plenary-nvim
     undotree
+    (vimUtils.buildVimPlugin {
+      name = "vim-tidal";
+      src = fetchFromGitHub {
+        owner = "tidalcycles";
+        repo = "vim-tidal";
+        rev = "e440fe5bdfe07f805e21e6872099685d38e8b761";
+        hash = "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA=";
+      };
+    })
   ];
 
   startPlugins = tsParsers ++ colorthemes ++ plugins;
