@@ -1,7 +1,4 @@
-vim.cmd [[colo boo]]
--- vim.cmd [[colo forest_stream]]
--- vim.cmd [[colo eva01]]
--- vim.cmd [[colo paper]]
+-- vim.cmd [[colo boo]]
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'

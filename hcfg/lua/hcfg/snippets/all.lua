@@ -18,8 +18,8 @@ local function use(...)
 end
 
 local function mkdatenode(fmtstr)
-    return f(function() 
-        return os.date(fmtstr) 
+    return f(function()
+        return os.date(fmtstr)
     end)
 end
 
@@ -29,11 +29,13 @@ use("day", c(1, {
     mkdatenode('%0d %b %Y'),
     mkdatenode('%A, %0d %B %Y'),
 }))
+
 use("tim", c(1, {
     mkdatenode('%H%M'),
     mkdatenode('%H:%M'),
     mkdatenode('%H:%M:%S'),
 }))
+
 use("now", c(1, {
     mkdatenode('%F %H%M'),
     mkdatenode('%s'),
