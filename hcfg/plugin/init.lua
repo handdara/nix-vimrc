@@ -257,3 +257,5 @@ if foundObsidian then
         },
     }
 end
+
+require 'hcfg-extra'

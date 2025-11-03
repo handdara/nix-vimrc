@@ -12,6 +12,7 @@
   pkg-config,
   nodejs_20,
   luajitPackages,
+  extraLuaConfig ? "",
 }:
 let
 
@@ -54,10 +55,16 @@ let
 
   startPlugins = tsParsers ++ colorthemes ++ plugins;
 
-  packageName = "nix-neovimrc";
+  packageName = "nix-vimrc-hcfg";
   packpath = runCommandLocal "packpath" { } ''
     mkdir -p $out/pack/${packageName}/{start,opt}
     ln -vsfT ${./hcfg} $out/pack/${packageName}/start/hcfg
+
+    mkdir -p $out/pack/${packageName}/start/hcfg-extra/lua
+    cat << EOF >"$out/pack/${packageName}/start/hcfg-extra/lua/hcfg-extra.lua"
+    ${extraLuaConfig}
+    EOF
+    
     ${lib.concatMapStringsSep "\n" (
       plugin: "ln -vsfT ${plugin} $out/pack/${packageName}/start/${lib.getName plugin}"
     ) startPlugins}
