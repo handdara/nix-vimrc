@@ -23,7 +23,12 @@ local function mkdatenode(fmtstr)
     end)
 end
 
-use("day", {mkdatenode('%F')})
+use("day", c(1, {
+    mkdatenode('%F'),
+    mkdatenode('%0d%b%Y'),
+    mkdatenode('%0d %b %Y'),
+    mkdatenode('%A, %0d %B %Y'),
+}))
 use("tim", c(1, {
     mkdatenode('%H%M'),
     mkdatenode('%H:%M'),
