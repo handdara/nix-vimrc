@@ -1,4 +1,4 @@
--- vim.cmd [[colo boo]]
+vim.cmd [[colo paper]]
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'
@@ -97,6 +97,7 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>si :FzfLua<cr>]]
     vim.cmd [[nnoremap <leader>sk :FzfLua keymaps<cr>]]
     vim.cmd [[nnoremap <leader>sm :FzfLua manpages<cr>]]
+    vim.cmd [[nnoremap <leader>sn :FzfLua files cwd=~/code/nix-vimrc<cr>]]
     vim.cmd [[nnoremap <leader>so :FzfLua oldfiles<cr>]]
     vim.cmd [[nnoremap <leader>sp :FzfLua<cr>lsp]]
     vim.cmd [[nnoremap <leader>sq :FzfLua resume<cr>]]
