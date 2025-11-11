@@ -27,7 +27,7 @@ use("day", c(1, {
     mkdatenode('%F'),
     mkdatenode('%0d%b%Y'),
     mkdatenode('%0d %b %Y'),
-    mkdatenode('%A, %0d %B %Y'),
+    mkdatenode('%A, %B %0d, %Y'),
 }))
 
 use("tim", c(1, {
