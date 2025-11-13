@@ -1,4 +1,4 @@
-vim.cmd [[colo paper]]
+require 'hcfg-pre'
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'

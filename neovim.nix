@@ -13,6 +13,7 @@
   nodejs_20,
   luajitPackages,
   extraLuaConfig ? "",
+  extraLuaPreConfig ? "vim.cmd [[colo paper]]",
 }:
 let
 
@@ -63,6 +64,11 @@ let
     mkdir -p $out/pack/${packageName}/start/hcfg-extra/lua
     cat << EOF >"$out/pack/${packageName}/start/hcfg-extra/lua/hcfg-extra.lua"
     ${extraLuaConfig}
+    EOF
+
+    mkdir -p $out/pack/${packageName}/start/hcfg-pre/lua
+    cat << EOF >"$out/pack/${packageName}/start/hcfg-pre/lua/hcfg-pre.lua"
+    ${extraLuaPreConfig}
     EOF
     
     ${lib.concatMapStringsSep "\n" (
