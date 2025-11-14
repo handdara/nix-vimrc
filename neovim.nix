@@ -14,6 +14,8 @@
   version,
   vimPlugins,
   vimUtils,
+  extraLuaConfig ? "",
+  extraLuaPreConfig ? "vim.cmd [[colo paper]]",
 }:
 let
 
@@ -65,10 +67,21 @@ let
 
   startPlugins = tsParsers ++ colorthemes ++ plugins;
 
-  packageName = "nix-neovimrc";
+  packageName = "nix-vimrc-hcfg";
   packpath = runCommandLocal "packpath" { } ''
     mkdir -p $out/pack/${packageName}/{start,opt}
     ln -vsfT ${./hcfg} $out/pack/${packageName}/start/hcfg
+
+    mkdir -p $out/pack/${packageName}/start/hcfg-extra/lua
+    cat << EOF >"$out/pack/${packageName}/start/hcfg-extra/lua/hcfg-extra.lua"
+    ${extraLuaConfig}
+    EOF
+
+    mkdir -p $out/pack/${packageName}/start/hcfg-pre/lua
+    cat << EOF >"$out/pack/${packageName}/start/hcfg-pre/lua/hcfg-pre.lua"
+    ${extraLuaPreConfig}
+    EOF
+    
     ${lib.concatMapStringsSep "\n" (
       plugin: "ln -vsfT ${plugin} $out/pack/${packageName}/start/${lib.getName plugin}"
     ) startPlugins}
