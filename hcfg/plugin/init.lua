@@ -91,7 +91,7 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>sd :FzfLua files cwd=~/code/dotfiles<cr>]]
     vim.cmd [[nnoremap <leader>sf :FzfLua files<cr>]]
     vim.cmd [[nnoremap <leader>sF :FzfLua files fd_opts=-u<cr>]]
-    vim.cmd [[nnoremap <leader>s: :FzfLua command_history<cr>]]
+    vim.cmd [[nnoremap <leader>s; :FzfLua command_history<cr>]]
     vim.cmd [[nnoremap <leader>sg :FzfLua live_grep rg_opts=--no-ignore\ --line-number\ --column<cr>]]
     vim.cmd [[nnoremap <leader>sh :FzfLua helptags<cr>]]
     vim.cmd [[nnoremap <leader>si :FzfLua<cr>]]
@@ -107,6 +107,16 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>sT :FzfLua treesitter<cr>]]
     vim.cmd [[nnoremap <leader>sx :FzfLua files cwd=~/.config fd_opts=-u<cr>]]
     vim.cmd [[nnoremap <leader>sz :FzfLua zoxide<cr>]]
+    vim.cmd [[nnoremap <leader>gB :FzfLua git_blame<cr>]]
+    vim.cmd [[nnoremap <leader>gb :FzfLua git_branches<cr>]]
+    vim.cmd [[nnoremap <leader>gc :FzfLua git_bcommits<cr>]]
+    vim.cmd [[nnoremap <leader>gC :FzfLua git_commits<cr>]]
+    vim.cmd [[nnoremap <leader>gd :FzfLua git_diff<cr>]]
+    vim.cmd [[nnoremap <leader>gf :FzfLua git_files<cr>]]
+    vim.cmd [[nnoremap <leader>gh :FzfLua git_hunks<cr>]]
+    vim.cmd [[nnoremap <leader>gs :FzfLua git_status<cr>]]
+    vim.cmd [[nnoremap <leader>gt :FzfLua git_tags<cr>]]
+    vim.cmd [[nnoremap <leader>gz :FzfLua git_stash<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
@@ -143,6 +153,7 @@ end
 vim.lsp.enable('nil_ls', {capabilities = capabilities})
 vim.lsp.enable('lua_ls', {capabilities = capabilities})
 vim.lsp.enable('fortls', {capabilities = capabilities})
+vim.lsp.enable('bashls', {capabilities = capabilities})
 vim.lsp.enable('tinymist', {
     capabilities = capabilities,
     settings = {
@@ -249,6 +260,21 @@ if foundObsidian then
                     vim.keymap.set(dat.modes, combos, dat.action, {buffer = note.bufnr} )
                 end
             end,
+        },
+        ui = {
+            hl_groups = {
+                ObsidianTodo = { bold = true, fg = "#89ddff" },
+                ObsidianDone = { bold = true, fg = "#2f8d59" },
+                ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+                ObsidianTilde = { bold = true, fg = "#ff5370" },
+                ObsidianImportant = { bold = true, fg = "#d73128" },
+                ObsidianBullet = { bold = true, fg = "#89ddff" },
+                ObsidianRefText = { underline = true, fg = "#c792ea" },
+                ObsidianExtLinkIcon = { fg = "#c792ea" },
+                ObsidianTag = { italic = true, fg = "#89ddff" },
+                ObsidianBlockID = { italic = true, fg = "#89ddff" },
+                ObsidianHighlightText = { bg = "#2f8d59" },
+            },
         },
         legacy_commands = false,
         checkbox = {

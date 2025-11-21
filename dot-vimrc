@@ -9,12 +9,16 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 set scrolloff=5
 set signcolumn=yes
 set formatoptions-=t
+set shell+=\ -i
 filetype plugin indent on
 syntax on
 
 let fortran_free_source=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
+
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix']
+let g:markdown_syntax_conceal = 0
 
 "maps
 nnoremap <leader>y "+y
