@@ -29,3 +29,5 @@ xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
 nnoremap <leader>tw :!tmux neww<cr>
 nnoremap <leader>ts :!tmux split<cr>
+nnoremap ; :
+nnoremap : ;
