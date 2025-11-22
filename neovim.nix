@@ -13,7 +13,7 @@
   nodejs_20,
   luajitPackages,
   extraLuaConfig ? "",
-  extraLuaPreConfig ? "vim.cmd [[colo paper]]",
+  extraLuaPreConfig ? "vim.cmd [[colo crimson_moonlight]]",
 }:
 let
 
@@ -50,6 +50,7 @@ let
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
+    otter-nvim
     plenary-nvim
     undotree
   ];

@@ -21,3 +21,4 @@ map('n', '<Tab>', '/'.. wikilink_regex ..'<CR>zz', { desc = 'go to next link', b
 map('n', '<S-Tab>', '?'.. wikilink_regex ..'<CR>zz', { desc = 'go to prev link', buffer = true })
 map('n', '<C-Tab>', '/'.. link_regex ..'<CR>zz', { desc = 'go to next link', buffer = true })
 map('n', '<C-S-Tab>', '?'.. link_regex ..'<CR>zz', { desc = 'go to prev link', buffer = true })
+pcall(function() require('otter').activate() end)
