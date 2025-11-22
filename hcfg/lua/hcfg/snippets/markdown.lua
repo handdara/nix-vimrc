@@ -13,18 +13,29 @@ local rep = extras.rep
 local fmt = require("luasnip.extras.fmt").fmt
 
 local S = {}
-local function use(snip)
-    table.insert(S, snip)
+local function use(...)
+    table.insert(S, s(...))
 end
 
 local filetypes = { 'yaml', 'just', 'lua', 'markdown', 'matlab', 'nix', 'tex', 'zig', 'rust', 'python', 'fish', 'bash', 'haskell' }
 
 for _, val in ipairs(filetypes) do
     local function mkCodeBlockSnip(ft)
-        return s(ft, { t { '```' .. ft, '' }, i(1), t { '', '```' } })
+        return use(ft, { t { '```' .. ft, '' }, i(1), t { '', '```' } })
     end
-    use(mkCodeBlockSnip(val))
+    mkCodeBlockSnip(val)
 end
-use(s('cbl', { t { '```', '' }, i(1), t { '', '```' } }))
+use('cbl', { t { '```', '' }, i(1), t { '', '```' } })
+
+local bdc = [[
+```dc
+8k
+{1}
+f
+```
+]]
+use('dc', fmt(bdc, {
+    i(1, '5 v 1 + 2 / p')
+}))
 
 ls.add_snippets("markdown", S)
