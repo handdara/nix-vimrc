@@ -197,6 +197,7 @@ if foundLuasnip then
     require 'hcfg.snippets.matlab'
     require 'hcfg.snippets.nix'
     require 'hcfg.snippets.typst'
+    require 'hcfg.snippets.shell'
 end
 
 local foundObsidian = pcall(function() require'obsidian' end)

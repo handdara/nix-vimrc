@@ -1,5 +1,6 @@
 ---@diagnostic disable: unused-local
 require('luasnip.session.snippet_collection').clear_snippets "bash"
+require('luasnip.session.snippet_collection').clear_snippets "dash"
 require('luasnip.session.snippet_collection').clear_snippets "sh"
 local ls = require 'luasnip'
 local s = ls.snippet
@@ -17,7 +18,6 @@ local S = {}
 local function use(...)
     table.insert(S, s(...))
 end
-
 
 local casetxt = [[
 case {1} in
@@ -40,4 +40,5 @@ use('case', fmt(casetxt,{
 }))
 
 ls.add_snippets("bash", S)
+ls.add_snippets("dash", S)
 ls.add_snippets("sh", S)
