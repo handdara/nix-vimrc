@@ -11,6 +11,7 @@ local d = ls.dynamic_node
 local extras = require 'luasnip.extras'
 local rep = extras.rep
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmt
 
 local S = {}
 local function use(...)
@@ -40,5 +41,16 @@ use("now", c(1, {
     mkdatenode('%F %H%M'),
     mkdatenode('%s'),
 }))
+
+local btasks = [[
+stache \
+    -utt \
+    -mf'status,closed' \
+    -mf'status,archived' \
+    -ps -F '### %s' \
+    -pp -rF NONE \
+    -l
+]]
+use('tsks',fmta(btasks, {}))
 
 ls.add_snippets("all", S)

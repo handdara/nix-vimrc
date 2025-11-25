@@ -85,7 +85,7 @@ if foundFzfLua then
     vim.cmd [[FzfLua register_ui_select]]
     vim.cmd [[nnoremap <leader><leader>/ :FzfLua lines<cr>]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
-    vim.cmd [[nnoremap <leader>sa :FzfLua<cr>]]
+    vim.cmd [[nnoremap <leader>sa :FzfLua global<cr>]]
     vim.cmd [[nnoremap <leader>sb :FzfLua buffers<cr>]]
     vim.cmd [[nnoremap <leader>sc :FzfLua files cwd=~/code<cr>]]
     vim.cmd [[nnoremap <leader>sd :FzfLua files cwd=~/code/dotfiles<cr>]]
@@ -117,6 +117,7 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>gs :FzfLua git_status<cr>]]
     vim.cmd [[nnoremap <leader>gt :FzfLua git_tags<cr>]]
     vim.cmd [[nnoremap <leader>gz :FzfLua git_stash<cr>]]
+    vim.cmd [[xnoremap <leader>/:FzfLua grep_visual<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
@@ -196,8 +197,9 @@ if foundLuasnip then
     require 'hcfg.snippets.markdown'
     require 'hcfg.snippets.matlab'
     require 'hcfg.snippets.nix'
-    require 'hcfg.snippets.typst'
+    require 'hcfg.snippets.stache'
     require 'hcfg.snippets.shell'
+    require 'hcfg.snippets.typst'
 end
 
 local foundObsidian = pcall(function() require'obsidian' end)
