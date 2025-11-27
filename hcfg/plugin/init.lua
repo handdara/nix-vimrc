@@ -155,6 +155,7 @@ vim.lsp.enable('nil_ls', {capabilities = capabilities})
 vim.lsp.enable('lua_ls', {capabilities = capabilities})
 vim.lsp.enable('fortls', {capabilities = capabilities})
 vim.lsp.enable('bashls', {capabilities = capabilities})
+vim.lsp.enable('marksman', {capabilities = capabilities})
 vim.lsp.enable('tinymist', {
     capabilities = capabilities,
     settings = {
