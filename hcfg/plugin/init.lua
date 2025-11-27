@@ -276,7 +276,7 @@ if foundObsidian then
                 ObsidianExtLinkIcon = { fg = "#c792ea" },
                 ObsidianTag = { italic = true, fg = "#89ddff" },
                 ObsidianBlockID = { italic = true, fg = "#89ddff" },
-                ObsidianHighlightText = { bg = "#ff69b4" },
+                ObsidianHighlightText = { bg = "#ff69b4", "#000000" },
             },
         },
         legacy_commands = false,
