@@ -13,7 +13,10 @@
   nodejs_20,
   luajitPackages,
   extraLuaConfig ? "",
-  extraLuaPreConfig ? "vim.cmd [[colo crimson_moonlight]]",
+  extraLuaPreConfig ? ''
+    vim.cmd [[colo lackluster]]
+    vim.cmd [[hi link markdownCode Special]]
+  '',
 }:
 let
 
@@ -37,6 +40,7 @@ let
     rose-pine
     vim-paper
     boo-colorscheme-nvim
+    lackluster-nvim
   ];
 
   plugins = with vimPlugins; [
