@@ -1,22 +1,19 @@
 {
+  gcc,
+  gnumake,
   lib,
+  luajitPackages,
   makeWrapper,
   neovim-unwrapped,
+  nodejs_20,
+  pkg-config,
+  python3,
   runCommandLocal,
   symlinkJoin,
   version,
   vimPlugins,
-  python3,
-  gcc,
-  gnumake,
-  pkg-config,
-  nodejs_20,
-  luajitPackages,
   extraLuaConfig ? "",
-  extraLuaPreConfig ? ''
-    vim.cmd [[colo lackluster]]
-    vim.cmd [[hi link markdownCode Special]]
-  '',
+  extraLuaPreConfig ? "vim.cmd [[colo lackluster]]",
 }:
 let
 

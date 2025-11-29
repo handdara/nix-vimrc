@@ -2,6 +2,7 @@ require 'hcfg-pre'
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'
+require 'hcfg.colocorrect'
 
 pcall(function() require('nvim-surround').setup{} end)
 
