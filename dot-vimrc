@@ -20,13 +20,18 @@ let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'j
 let g:markdown_syntax_conceal = 0
 
 "maps
-nnoremap <leader>y "+y
+inoremap jk <esc>
+nnoremap : ;
+nnoremap ; :
+nnoremap <leader>lg :term lazygit<cr>i
 nnoremap <leader>sf :find *
 nnoremap <leader>sh :vert help 
-inoremap jk <esc>
+nnoremap <leader>ts :!tmux split<cr>
+nnoremap <leader>tw :!tmux neww<cr>
+nnoremap <leader>y "+y
+tnoremap <C-c><C-c> <C-c>
+tnoremap <C-c> <nop>
+xnoremap <leader>b !boxes -d parchment
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
-nnoremap <leader>tw :!tmux neww<cr>
-nnoremap <leader>ts :!tmux split<cr>
-nnoremap ; :
-nnoremap : ;
+xnoremap <leader>x !bash<cr>
