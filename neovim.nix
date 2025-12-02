@@ -1,4 +1,5 @@
 {
+  fetchFromGitHub,
   gcc,
   gnumake,
   lib,
@@ -12,24 +13,25 @@
   symlinkJoin,
   version,
   vimPlugins,
+  vimUtils,
   extraLuaConfig ? "",
   extraLuaPreConfig ? "vim.cmd [[colo lackluster]]",
 }:
 let
 
   tsParsers = with vimPlugins.nvim-treesitter-parsers; [
-    asm        gnuplot perl
-    awk        haskell python
-    bibtex     html    r
-    cmake      ini     regex
-    cpp        jq      rust
-    css        json    sql
-    csv        just    tcl
-    fish       kdl     tmux
-    fortran    latex   typst
-    gitcommit  luadoc  yaml
-    git_rebase make    zig
-    gitignore  nix     
+    asm         gnuplot  perl
+    awk         haskell  python
+    bibtex      html     r
+    cmake       ini      regex
+    cpp         jq       rust
+    css         json     sql
+    csv         just     supercollider
+    fish        kdl      tcl
+    fortran     latex    tmux
+    gitcommit   luadoc   typst
+    gitignore   make     yaml
+    git_rebase  nix      zig
   ];
   
   colorthemes = with vimPlugins; [ 
@@ -54,6 +56,15 @@ let
     otter-nvim
     plenary-nvim
     undotree
+    (vimUtils.buildVimPlugin {
+      name = "vim-tidal";
+      src = fetchFromGitHub {
+        owner = "tidalcycles";
+        repo = "vim-tidal";
+        rev = "e440fe5bdfe07f805e21e6872099685d38e8b761";
+        hash = "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA=";
+      };
+    })
   ];
 
   startPlugins = tsParsers ++ colorthemes ++ plugins;
