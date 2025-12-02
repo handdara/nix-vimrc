@@ -251,11 +251,13 @@ if foundObsidian then
             return path:with_suffix(".md")
         end,
         preferred_link_style = "wiki",
-        disable_frontmatter = false,
-        sort_by = "modified",
-        sort_reversed = true,
+        frontmatter = { enabled = true },
+        search = {
+            sort_by = "modified",
+            sort_reversed = true,
+        },
         callbacks = {
-            enter_note = function(note) 
+            enter_note = function(note)
                 local maps = {
                     ["<leader>nx"] = { modes = 'v', action = ":Obsidian extract_note<CR>", },
                     ["<leader>nln"] = { modes = 'v', action = ":Obsidian linkNew<CR>", },
