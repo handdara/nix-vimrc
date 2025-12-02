@@ -20,8 +20,8 @@
 }:
 let
 
-  colorthemes = with vimPlugins; [
-    boo-colorscheme-nvim
+  
+  colorthemes = with vimPlugins; [ 
     eva01-vim
     falcon
     lackluster-nvim
@@ -69,6 +69,15 @@ let
     # otter-nvim
     plenary-nvim
     undotree
+    (vimUtils.buildVimPlugin {
+      name = "vim-tidal";
+      src = fetchFromGitHub {
+        owner = "tidalcycles";
+        repo = "vim-tidal";
+        rev = "e440fe5bdfe07f805e21e6872099685d38e8b761";
+        hash = "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA=";
+      };
+    })
   ];
 
   startPlugins = colorthemes ++ plugins;
