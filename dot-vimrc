@@ -16,7 +16,7 @@ let fortran_free_source=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
 
-let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'tidal', 'haskell']
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'haskell']
 let g:markdown_syntax_conceal = 0
 
 "maps
