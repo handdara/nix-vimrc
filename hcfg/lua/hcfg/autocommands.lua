@@ -17,3 +17,13 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     group = stache_enter,
     pattern = stachePattern,
 })
+local set_colo = vim.api.nvim_create_augroup('SetColo', { clear = true })
+vim.api.nvim_create_autocmd('ColorScheme', {
+    callback = function()
+        require 'hcfg.colocorrect'.correct()
+        if Obsidian then
+            require("obsidian.ui").setup(Obsidian.workspace, Obsidian.opts.ui)
+        end
+    end,
+    group = set_colo,
+})
