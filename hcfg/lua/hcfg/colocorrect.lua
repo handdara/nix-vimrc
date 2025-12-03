@@ -7,7 +7,7 @@ function M.correct()
         end
         return false
     end
-    if vim.iter({"lackluster","delek"}):any(iscolorscheme) then
+    if vim.iter({"lackluster","delek","lunaperche"}):any(iscolorscheme) then
         vim.cmd [[hi link markdownCode Special]]
     elseif vim.iter({'eva01'}):any(iscolorscheme)  then
         vim.cmd [[

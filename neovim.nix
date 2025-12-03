@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  fetchFromGitLab,
   gcc,
   gnumake,
   lib,
@@ -35,11 +36,13 @@ let
   ];
   
   colorthemes = with vimPlugins; [ 
+    boo-colorscheme-nvim
     eva01-vim
+    falcon
+    lackluster-nvim
+    melange-nvim
     rose-pine
     vim-paper
-    boo-colorscheme-nvim
-    lackluster-nvim
     (vimUtils.buildVimPlugin {
       name = "monalisa-nvim";
       src = fetchFromGitHub {
@@ -47,6 +50,15 @@ let
         repo = "monalisa-nvim";
         rev = "2ffe6db37fcad17da0d210f5b3a357712d0b8a2b";
         hash = "sha256-5VgsVaClE3cH5uVlRSHEFV3WofHw2P+3rBMF/lQEm+0=";
+      };
+    })
+    (vimUtils.buildVimPlugin {
+      name = "halfspace";
+      src = fetchFromGitLab {
+        owner = "sxwpb";
+        repo = "halfspace.nvim";
+        rev = "23b367771f694479771735150311d41830133f95";
+        hash = "sha256-VD8l1dPzYB5ccCdo563mnAtZ0DWPiT3zY40vRJnmlgs=";
       };
     })
   ];
