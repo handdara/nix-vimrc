@@ -1,9 +1,5 @@
 require 'hcfg-pre'
 
-require 'hcfg.autocommands'
-require 'hcfg.commands'
-require 'hcfg.colocorrect'
-
 pcall(function() require('nvim-surround').setup{} end)
 
 local foundGitsigns = pcall(function() return require('gitsigns').setup {} end)
@@ -291,5 +287,9 @@ if foundObsidian then
         },
     }
 end
+
+require 'hcfg.autocommands'
+require 'hcfg.commands'
+require 'hcfg.colocorrect'
 
 require 'hcfg-extra'

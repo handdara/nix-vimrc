@@ -2,7 +2,6 @@ local M = {}
 
 function M.correct()
     local function iscolorscheme(x)
-        vim.notify('c:',vim.inspect(string.match(vim.g.colors_name, x)))
         if string.match(vim.g.colors_name, x) then
             return true
         end
