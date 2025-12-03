@@ -1,4 +1,5 @@
 {
+  fetchFromGitHub,
   gcc,
   gnumake,
   lib,
@@ -12,6 +13,7 @@
   symlinkJoin,
   version,
   vimPlugins,
+  vimUtils,
   extraLuaConfig ? "",
   extraLuaPreConfig ? "vim.cmd [[colo lackluster]]",
 }:
@@ -38,6 +40,15 @@ let
     vim-paper
     boo-colorscheme-nvim
     lackluster-nvim
+    (vimUtils.buildVimPlugin {
+      name = "monalisa-nvim";
+      src = fetchFromGitHub {
+        owner = "ptdewey";
+        repo = "monalisa-nvim";
+        rev = "2ffe6db37fcad17da0d210f5b3a357712d0b8a2b";
+        hash = "sha256-5VgsVaClE3cH5uVlRSHEFV3WofHw2P+3rBMF/lQEm+0=";
+      };
+    })
   ];
 
   plugins = with vimPlugins; [

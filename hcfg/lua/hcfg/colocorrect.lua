@@ -25,6 +25,8 @@ function M.correct()
         hi link markdownBoldItalic htmlBoldItalic
         hi link markdownLinkTextDelimiter @markup.link
         ]]
+    elseif vim.iter({'monalisa'}):any(iscolorscheme)  then
+        vim.cmd [[hi link markdownCode Function]]
     end
 end
 
