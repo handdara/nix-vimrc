@@ -16,7 +16,7 @@
   vimPlugins,
   vimUtils,
   extraLuaConfig ? "",
-  extraLuaPreConfig ? "vim.cmd [[colo lackluster]]",
+  extraLuaPreConfig ? "",
 }:
 let
 
