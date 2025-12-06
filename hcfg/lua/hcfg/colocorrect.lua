@@ -2,7 +2,8 @@ local M = {}
 
 function M.correct()
     local function iscolorscheme(x)
-        if string.match(vim.g.colors_name, x) then
+        local vc = vim.g.colors_name
+        if vc and string.match(vim.g.colors_name, x) then
             return true
         end
         return false
