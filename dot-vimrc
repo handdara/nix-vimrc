@@ -29,6 +29,10 @@ nnoremap <leader>sh :vert help
 nnoremap <leader>ts :!tmux split<cr>
 nnoremap <leader>tw :!tmux neww<cr>
 nnoremap <leader>y "+y
+nnoremap <C-S-M-Left> 5<C-w><
+nnoremap <C-S-M-Right> 5<C-w>>
+nnoremap <C-S-M-Up> 5<C-w>+
+nnoremap <C-S-M-Down> 5<C-w>-
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
 xnoremap <leader>b !boxes -d parchment
