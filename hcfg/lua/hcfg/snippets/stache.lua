@@ -26,7 +26,7 @@ end
 
 local function mkCStacheContexts(idx)
     local cs = {}
-    local res = vim.system({'stache', '--get-var', 'STACHE_CNTXS'}, { text = true }):wait()
+    local res = vim.system({'stache', '--get-var=STACHE_CNTXS'}, { text = true }):wait()
     assert(res.code == 0)
     local contexts = vim.split(vim.trim(res.stdout), ",", {trimempty=true})
     for _, val in ipairs(contexts) do
