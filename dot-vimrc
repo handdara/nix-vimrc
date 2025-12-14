@@ -34,6 +34,9 @@ nnoremap <leader>ts :!tmux split<cr>
 nnoremap <leader>tw :!tmux neww<cr>
 nnoremap <leader>y "+y
 nnoremap <leader>mg :tab term mg<cr>
+nnoremap <leader><cr> :tab term bash<cr>
+nnoremap <leader>v<cr> :vsp +term\ bash<cr>
+nnoremap <leader>s<cr> :sp +term\ bash<cr>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
 tnoremap <C-w><C-w> <C-\><C-n><C-w>

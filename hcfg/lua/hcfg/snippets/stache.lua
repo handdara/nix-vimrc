@@ -46,7 +46,7 @@ local function mkCLocations(idx)
     table.insert(lcs, i(1, 'custom'))
     return c(idx, lcs)
 end
-use('cntx', { mkCLocations(1) })
+use('locs', { mkCLocations(1) })
 
 local function mkCStatuses(idx)
     local ss = {}

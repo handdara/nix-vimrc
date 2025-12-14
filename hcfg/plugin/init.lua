@@ -114,7 +114,7 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>gs :FzfLua git_status<cr>]]
     vim.cmd [[nnoremap <leader>gt :FzfLua git_tags<cr>]]
     vim.cmd [[nnoremap <leader>gz :FzfLua git_stash<cr>]]
-    vim.cmd [[xnoremap <leader>/:FzfLua grep_visual<cr>]]
+    vim.cmd [[xnoremap <leader>/ :FzfLua grep_visual<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
