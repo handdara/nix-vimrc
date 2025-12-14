@@ -37,6 +37,7 @@ nnoremap <leader>mg :tab term mg<cr>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
 tnoremap <C-w><C-w> <C-\><C-n><C-w>
+tnoremap <C-w><C-g> <C-\><C-n>g
 xnoremap <leader>b !boxes -d parchment
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
