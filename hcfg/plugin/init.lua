@@ -19,62 +19,69 @@ end
 
 local foundMiniFiles = pcall(function() require 'mini.files' end)
 if foundMiniFiles then
-require('mini.files').setup({
-    content = { filter = nil, prefix = nil, sort = nil, },
-    mappings = { -- Module mappings created only inside explorer.
-        close       = '<ESC>',
-        go_in       = 'l',
-        go_in_plus  = '<CR>',
-        go_out      = 'h',
-        go_out_plus = 'H',
-        mark_goto   = "'",
-        mark_set    = 'm',
-        reset       = '<BS>',
-        reveal_cwd  = '@',
-        show_help   = 'g?',
-        synchronize = 's',
-        trim_left   = '<',
-        trim_right  = '>',
-    },
-    options = { permanent_delete = false },
-    windows = {
-        preview = true,
-        width_focus = 40, 
-        width_nofocus = 30, 
-        width_preview = 90,
-    },
-})
-vim.keymap.set('n', '<leader>go', 
-function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, 
-{ desc = '[O]pen file browser at current file' })
-vim.keymap.set('n', '<leader>o', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesWindowOpen',
-    callback = function(args)
-        local win_id = args.data.win_id
-        local config = vim.api.nvim_win_get_config(win_id)
-        vim.wo[win_id].winblend = 0 -- mini.files window transparency
-        vim.api.nvim_win_set_config(win_id, { border = 'double' })
-    end,
-})
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesWindowUpdate',
-    callback = function(args)
-        local win_id = args.data.win_id
-        vim.wo[win_id].number = true
-        vim.wo[win_id].relativenumber = true
-    end,
-})
-local set_mark = function (id, path, desc)
-    MiniFiles.set_bookmark(id, path, {desc = desc})
+    require('mini.files').setup({
+        content = { filter = nil, prefix = nil, sort = nil, },
+        mappings = { -- Module mappings created only inside explorer.
+            close       = '<ESC>',
+            go_in       = 'l',
+            go_in_plus  = '<CR>',
+            go_out      = 'h',
+            go_out_plus = 'H',
+            mark_goto   = "'",
+            mark_set    = 'm',
+            reset       = '<BS>',
+            reveal_cwd  = '@',
+            show_help   = 'g?',
+            synchronize = 's',
+            trim_left   = '<',
+            trim_right  = '>',
+        },
+        options = { permanent_delete = false },
+        windows = {
+            preview = true,
+            width_focus = 40,
+            width_nofocus = 30,
+            width_preview = 90,
+        },
+    })
+    vim.keymap.set('n', '<leader>go',
+        function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
+        { desc = '[O]pen file browser at current file' }
+    )
+    vim.keymap.set('n', '<leader>o', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesWindowOpen',
+        callback = function(args)
+            local win_id = args.data.win_id
+            local config = vim.api.nvim_win_get_config(win_id)
+            vim.wo[win_id].winblend = 0 -- mini.files window transparency
+            vim.api.nvim_win_set_config(win_id, { border = 'double' })
+        end,
+    })
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesWindowUpdate',
+        callback = function(args)
+            local win_id = args.data.win_id
+            vim.wo[win_id].number = true
+            vim.wo[win_id].relativenumber = true
+        end,
+    })
+    local set_mark = function (id, path, desc)
+        MiniFiles.set_bookmark(id, path, {desc = desc})
+    end
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesExplorerOpen',
+        callback = function ()
+            set_mark('c', vim.fn.getcwd, 'Working dir')
+            set_mark('~', '~', 'Home dir')
+        end,
+    })
 end
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesExplorerOpen',
-    callback = function ()
-        set_mark('c', vim.fn.getcwd, 'Working dir')
-        set_mark('~', '~', 'Home dir')
-    end,
-})
+
+local foundOil = pcall(function() require 'oil' end)
+if foundOil then
+    require('oil').setup()
+    vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
 end
 
 local foundFzfLua = pcall(function() require 'fzf-lua' end)
@@ -168,14 +175,14 @@ if foundLuasnip then
     ls.setup {
         update_events = {"TextChanged", "TextChangedI"}
     }
-    vim.keymap.set({"i"}, "<C-j>", function() 
+    vim.keymap.set({"i"}, "<C-j>", function()
         if ls.expandable() then
             ls.expand()
         else
             if ls.jumpable(1) then ls.jump(1) end
         end
     end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-k>", function() 
+    vim.keymap.set({"i", "s"}, "<C-k>", function()
         if ls.jumpable(-1) then ls.jump(-1) end
     end, {silent = true})
     vim.keymap.set({"i", "s"}, "<C-h>", function()

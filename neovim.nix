@@ -68,12 +68,12 @@ let
     fzf-lua
     gitsigns-nvim
     luasnip
-    mini-files
     nvim-lspconfig
     nvim-surround
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
+    oil-nvim
     otter-nvim
     plenary-nvim
     undotree
