@@ -80,7 +80,22 @@ end
 
 local foundOil = pcall(function() require 'oil' end)
 if foundOil then
-    require('oil').setup()
+    local detail = false
+    require("oil").setup({
+        keymaps = {
+            ["gd"] = {
+                desc = "Toggle file detail view",
+                callback = function()
+                    detail = not detail
+                    if detail then
+                        require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+                    else
+                        require("oil").set_columns({ "icon" })
+                    end
+                end,
+            },
+        },
+    })
     vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
 end
 
