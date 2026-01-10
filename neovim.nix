@@ -22,6 +22,7 @@ let
 
   
   colorthemes = with vimPlugins; [ 
+    boo-colorscheme-nvim
     eva01-vim
     falcon
     lackluster-nvim

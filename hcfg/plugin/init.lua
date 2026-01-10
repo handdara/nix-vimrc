@@ -79,16 +79,37 @@ if foundMiniFiles then
             vim.wo[win_id].relativenumber = true
         end,
     })
-    local set_mark = function(id, path, desc)
-        MiniFiles.set_bookmark(id, path, { desc = desc })
+    local set_mark = function (id, path, desc)
+        MiniFiles.set_bookmark(id, path, {desc = desc})
     end
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesExplorerOpen',
-        callback = function()
+        callback = function ()
             set_mark('c', vim.fn.getcwd, 'Working dir')
             set_mark('~', '~', 'Home dir')
         end,
     })
+end
+
+local foundOil = pcall(function() require 'oil' end)
+if foundOil then
+    local detail = false
+    require("oil").setup({
+        keymaps = {
+            ["gd"] = {
+                desc = "Toggle file detail view",
+                callback = function()
+                    detail = not detail
+                    if detail then
+                        require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+                    else
+                        require("oil").set_columns({ "icon" })
+                    end
+                end,
+            },
+        },
+    })
+    vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
 end
 -- Mini.Files setup }}}
 
@@ -235,7 +256,13 @@ if foundBlink then
     capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 end
 
-vim.lsp.config('nil_ls', {
+vim.lsp.enable('nil_ls', {capabilities = capabilities})
+vim.lsp.enable('lua_ls', {capabilities = capabilities})
+vim.lsp.enable('fortls', {capabilities = capabilities})
+vim.lsp.enable('bashls', {capabilities = capabilities})
+vim.lsp.enable('hls',    {capabilities = capabilities})
+vim.lsp.enable('marksman', {capabilities = capabilities})
+vim.lsp.enable('tinymist', {
     capabilities = capabilities,
     settings = {
         ['nil'] = {
@@ -424,6 +451,10 @@ if foundTreesitter then
     })
 end
 -- }}}
+
+require 'hcfg.autocommands'
+require 'hcfg.commands'
+require 'hcfg.colocorrect'
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'
