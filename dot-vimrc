@@ -27,21 +27,22 @@ nnoremap <C-S-M-Down> 5<C-w>-
 nnoremap <C-S-M-Left> 5<C-w><
 nnoremap <C-S-M-Right> 5<C-w>>
 nnoremap <C-S-M-Up> 5<C-w>+
-nnoremap <space> <nop>
+nnoremap <leader><cr> :tab term bash<cr>
 nnoremap <leader>lg :tab term lazygit<cr>i
+nnoremap <leader>w :mkview<cr>:update<cr>
+nnoremap <leader>mg :tab term mg<cr>
+nnoremap <leader>s<cr> :sp +term\ bash<cr>
 nnoremap <leader>sf :find *
 nnoremap <leader>sh :vert help 
 nnoremap <leader>ts :!tmux split<cr>
 nnoremap <leader>tw :!tmux neww<cr>
-nnoremap <leader>y "+y
-nnoremap <leader>mg :tab term mg<cr>
-nnoremap <leader><cr> :tab term bash<cr>
 nnoremap <leader>v<cr> :vsp +term\ bash<cr>
-nnoremap <leader>s<cr> :sp +term\ bash<cr>
+nnoremap <leader>y "+y
+nnoremap <space> <nop>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
-tnoremap <C-w><C-w> <C-\><C-n><C-w>
 tnoremap <C-w><C-g> <C-\><C-n>g
+tnoremap <C-w><C-w> <C-\><C-n><C-w>
 xnoremap <leader>b !boxes -d parchment
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
