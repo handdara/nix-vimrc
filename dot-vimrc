@@ -16,21 +16,35 @@ let fortran_free_source=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
 
-let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'tidal', 'haskell']
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'haskell', 'tidal', 'vim']
 let g:markdown_syntax_conceal = 0
 
 "maps
 inoremap jk <esc>
 nnoremap : ;
 nnoremap ; :
-nnoremap <leader>lg :term lazygit<cr>i
+nnoremap <C-S-M-Down> 5<C-w>-
+nnoremap <C-S-M-Left> 5<C-w><
+nnoremap <C-S-M-Right> 5<C-w>>
+nnoremap <C-S-M-Up> 5<C-w>+
+nnoremap <leader><cr> :tab term bash<cr>
+nnoremap <leader>fo :Format<cr>
+nnoremap <leader>fw :Format<cr>:update<cr>
+nnoremap <leader>lg :tab term lazygit<cr>i
+nnoremap <leader>mg :tab term mg<cr>
+nnoremap <leader>s<cr> :sp +term\ bash<cr>
 nnoremap <leader>sf :find *
 nnoremap <leader>sh :vert help 
 nnoremap <leader>ts :!tmux split<cr>
 nnoremap <leader>tw :!tmux neww<cr>
+nnoremap <leader>v<cr> :vsp +term\ bash<cr>
+nnoremap <leader>w :mkview<cr>:update<cr>
 nnoremap <leader>y "+y
+nnoremap <space> <nop>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
+tnoremap <C-w><C-g> <C-\><C-n>g
+tnoremap <C-w><C-w> <C-\><C-n><C-w>
 xnoremap <leader>b !boxes -d parchment
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>

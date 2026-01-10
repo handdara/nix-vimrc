@@ -1,9 +1,5 @@
 require 'hcfg-pre'
 
-require 'hcfg.autocommands'
-require 'hcfg.commands'
-require 'hcfg.colocorrect'
-
 pcall(function() require('nvim-surround').setup{} end)
 
 local foundGitsigns = pcall(function() return require('gitsigns').setup {} end)
@@ -23,69 +19,101 @@ end
 
 local foundMiniFiles = pcall(function() require 'mini.files' end)
 if foundMiniFiles then
-require('mini.files').setup({
-    content = { filter = nil, prefix = nil, sort = nil, },
-    mappings = { -- Module mappings created only inside explorer.
-        close       = '<ESC>',
-        go_in       = 'l',
-        go_in_plus  = '<CR>',
-        go_out      = 'h',
-        go_out_plus = 'H',
-        mark_goto   = "'",
-        mark_set    = 'm',
-        reset       = '<BS>',
-        reveal_cwd  = '@',
-        show_help   = 'g?',
-        synchronize = 's',
-        trim_left   = '<',
-        trim_right  = '>',
-    },
-    options = { permanent_delete = false },
-    windows = {
-        preview = true,
-        width_focus = 40, 
-        width_nofocus = 30, 
-        width_preview = 90,
-    },
-})
-vim.keymap.set('n', '<leader>go', 
-function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, 
-{ desc = '[O]pen file browser at current file' })
-vim.keymap.set('n', '<leader>o', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesWindowOpen',
-    callback = function(args)
-        local win_id = args.data.win_id
-        local config = vim.api.nvim_win_get_config(win_id)
-        vim.wo[win_id].winblend = 0 -- mini.files window transparency
-        vim.api.nvim_win_set_config(win_id, { border = 'double' })
-    end,
-})
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesWindowUpdate',
-    callback = function(args)
-        local win_id = args.data.win_id
-        vim.wo[win_id].number = true
-        vim.wo[win_id].relativenumber = true
-    end,
-})
-local set_mark = function (id, path, desc)
-    MiniFiles.set_bookmark(id, path, {desc = desc})
+    require('mini.files').setup({
+        content = { filter = nil, prefix = nil, sort = nil, },
+        mappings = { -- Module mappings created only inside explorer.
+            close       = '<ESC>',
+            go_in       = 'l',
+            go_in_plus  = '<CR>',
+            go_out      = 'h',
+            go_out_plus = 'H',
+            mark_goto   = "'",
+            mark_set    = 'm',
+            reset       = '<BS>',
+            reveal_cwd  = '@',
+            show_help   = 'g?',
+            synchronize = 's',
+            trim_left   = '<',
+            trim_right  = '>',
+        },
+        options = { permanent_delete = false },
+        windows = {
+            preview = true,
+            width_focus = 40,
+            width_nofocus = 30,
+            width_preview = 90,
+        },
+    })
+    vim.keymap.set('n', '<leader>go',
+        function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
+        { desc = '[O]pen file browser at current file' }
+    )
+    vim.keymap.set('n', '<leader>o', function() MiniFiles.open() end, { desc = '[O]pen file browser' })
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesWindowOpen',
+        callback = function(args)
+            local win_id = args.data.win_id
+            local config = vim.api.nvim_win_get_config(win_id)
+            vim.wo[win_id].winblend = 0 -- mini.files window transparency
+            vim.api.nvim_win_set_config(win_id, { border = 'double' })
+        end,
+    })
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesWindowUpdate',
+        callback = function(args)
+            local win_id = args.data.win_id
+            vim.wo[win_id].number = true
+            vim.wo[win_id].relativenumber = true
+        end,
+    })
+    local set_mark = function (id, path, desc)
+        MiniFiles.set_bookmark(id, path, {desc = desc})
+    end
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesExplorerOpen',
+        callback = function ()
+            set_mark('c', vim.fn.getcwd, 'Working dir')
+            set_mark('~', '~', 'Home dir')
+        end,
+    })
 end
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesExplorerOpen',
-    callback = function ()
-        set_mark('c', vim.fn.getcwd, 'Working dir')
-        set_mark('~', '~', 'Home dir')
-    end,
-})
+
+local foundOil = pcall(function() require 'oil' end)
+if foundOil then
+    local detail = false
+    require("oil").setup({
+        keymaps = {
+            ["gd"] = {
+                desc = "Toggle file detail view",
+                callback = function()
+                    detail = not detail
+                    if detail then
+                        require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+                    else
+                        require("oil").set_columns({ "icon" })
+                    end
+                end,
+            },
+        },
+    })
+    vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
 end
 
 local foundFzfLua = pcall(function() require 'fzf-lua' end)
 if foundFzfLua then
     vim.cmd [[FzfLua register_ui_select]]
-    vim.cmd [[nnoremap <leader><leader>/ :FzfLua lines<cr>]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
+    vim.cmd [[nnoremap <leader>gB :FzfLua git_blame<cr>]]
+    vim.cmd [[nnoremap <leader>gb :FzfLua git_branches<cr>]]
+    vim.cmd [[nnoremap <leader>gc :FzfLua git_bcommits<cr>]]
+    vim.cmd [[nnoremap <leader>gC :FzfLua git_commits<cr>]]
+    vim.cmd [[nnoremap <leader>gd :FzfLua git_diff<cr>]]
+    vim.cmd [[nnoremap <leader>gf :FzfLua git_files<cr>]]
+    vim.cmd [[nnoremap <leader>gh :FzfLua git_hunks<cr>]]
+    vim.cmd [[nnoremap <leader>gs :FzfLua git_status<cr>]]
+    vim.cmd [[nnoremap <leader>gt :FzfLua git_tags<cr>]]
+    vim.cmd [[nnoremap <leader>gz :FzfLua git_stash<cr>]]
+    vim.cmd [[nnoremap <leader><leader>/ :FzfLua lines<cr>]]
     vim.cmd [[nnoremap <leader>sa :FzfLua global<cr>]]
     vim.cmd [[nnoremap <leader>sb :FzfLua buffers<cr>]]
     vim.cmd [[nnoremap <leader>sc :FzfLua files cwd=~/code<cr>]]
@@ -108,17 +136,7 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>sT :FzfLua treesitter<cr>]]
     vim.cmd [[nnoremap <leader>sx :FzfLua files cwd=~/.config fd_opts=-u<cr>]]
     vim.cmd [[nnoremap <leader>sz :FzfLua zoxide<cr>]]
-    vim.cmd [[nnoremap <leader>gB :FzfLua git_blame<cr>]]
-    vim.cmd [[nnoremap <leader>gb :FzfLua git_branches<cr>]]
-    vim.cmd [[nnoremap <leader>gc :FzfLua git_bcommits<cr>]]
-    vim.cmd [[nnoremap <leader>gC :FzfLua git_commits<cr>]]
-    vim.cmd [[nnoremap <leader>gd :FzfLua git_diff<cr>]]
-    vim.cmd [[nnoremap <leader>gf :FzfLua git_files<cr>]]
-    vim.cmd [[nnoremap <leader>gh :FzfLua git_hunks<cr>]]
-    vim.cmd [[nnoremap <leader>gs :FzfLua git_status<cr>]]
-    vim.cmd [[nnoremap <leader>gt :FzfLua git_tags<cr>]]
-    vim.cmd [[nnoremap <leader>gz :FzfLua git_stash<cr>]]
-    vim.cmd [[xnoremap <leader>/:FzfLua grep_visual<cr>]]
+    vim.cmd [[xnoremap <leader>/ :FzfLua grep_visual<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
@@ -156,6 +174,7 @@ vim.lsp.enable('nil_ls', {capabilities = capabilities})
 vim.lsp.enable('lua_ls', {capabilities = capabilities})
 vim.lsp.enable('fortls', {capabilities = capabilities})
 vim.lsp.enable('bashls', {capabilities = capabilities})
+vim.lsp.enable('hls',    {capabilities = capabilities})
 vim.lsp.enable('marksman', {capabilities = capabilities})
 vim.lsp.enable('tinymist', {
     capabilities = capabilities,
@@ -172,14 +191,14 @@ if foundLuasnip then
     ls.setup {
         update_events = {"TextChanged", "TextChangedI"}
     }
-    vim.keymap.set({"i"}, "<C-j>", function() 
+    vim.keymap.set({"i"}, "<C-j>", function()
         if ls.expandable() then
             ls.expand()
         else
             if ls.jumpable(1) then ls.jump(1) end
         end
     end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-k>", function() 
+    vim.keymap.set({"i", "s"}, "<C-k>", function()
         if ls.jumpable(-1) then ls.jump(-1) end
     end, {silent = true})
     vim.keymap.set({"i", "s"}, "<C-h>", function()
@@ -291,5 +310,9 @@ if foundObsidian then
         },
     }
 end
+
+require 'hcfg.autocommands'
+require 'hcfg.commands'
+require 'hcfg.colocorrect'
 
 require 'hcfg-extra'

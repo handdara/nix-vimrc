@@ -26,7 +26,7 @@ end
 
 local function mkCStacheContexts(idx)
     local cs = {}
-    local res = vim.system({'stache', '--get-var', 'STACHE_CNTXS'}, { text = true }):wait()
+    local res = vim.system({'stache', '--get-var=STACHE_CNTXS'}, { text = true }):wait()
     assert(res.code == 0)
     local contexts = vim.split(vim.trim(res.stdout), ",", {trimempty=true})
     for _, val in ipairs(contexts) do
@@ -46,11 +46,11 @@ local function mkCLocations(idx)
     table.insert(lcs, i(1, 'custom'))
     return c(idx, lcs)
 end
-use('cntx', { mkCLocations(1) })
+use('locs', { mkCLocations(1) })
 
 local function mkCStatuses(idx)
     local ss = {}
-    local res = vim.system({'stache', '--get-var', 'STACHE_STATS'}, { text = true }):wait()
+    local res = vim.system({'stache', '--get-var=STACHE_STATS'}, { text = true }):wait()
     assert(res.code == 0)
     local statuses = vim.split(vim.trim(res.stdout), ",", {trimempty=true})
     for _, val in ipairs(statuses) do
@@ -62,7 +62,7 @@ use('stat', { mkCStatuses(1) })
 
 local function mkCPriorities(idx)
     local ps = {}
-    local res = vim.system({'stache', '--get-var', 'STACHE_PRIOS'}, { text = true }):wait()
+    local res = vim.system({'stache', '--get-var=STACHE_PRIOS'}, { text = true }):wait()
     assert(res.code == 0)
     local priorities = vim.split(vim.trim(res.stdout), ",", {trimempty=true})
     for _, val in ipairs(priorities) do

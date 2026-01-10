@@ -11,7 +11,7 @@ local d = ls.dynamic_node
 local extras = require 'luasnip.extras'
 local rep = extras.rep
 local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 
 local S = {}
 local function use(...)
@@ -42,15 +42,40 @@ use("now", c(1, {
     mkdatenode('%s'),
 }))
 
-local btasks = [[
-stache \
-    -utt \
-    -mf'status,closed' \
-    -mf'status,archived' \
-    -ps -F '### %s' \
-    -pp -rF NONE \
-    -l
-]]
-use('tsks',fmta(btasks, {}))
+use('tsks', c(1, {
+    fmta([[
+        stache \
+            -utt \
+            -mfstatus,closed \
+            -mfstatus,archived \
+            -ps -F'### %s' \
+            -pp -rFNONE \
+            -lF <1>
+    ]], {
+        i(1, [['- `~/.stache/{.id}` _{.priority}_ {.description}']]),
+    }),
+    fmta([[
+        stache \
+            -ufid,<1> \
+            -ntt <2>
+            -ps -FNONE \
+            -pp -FNONE \
+            -lF '- `~/.stache/{.id}`\t{.status}\t{.priority}\t{.description}' \
+            | column -ts $'\t'
+    ]], {
+        i(1, 'id-prefix'),
+        c(2, {
+            t { '\\', '    -mfstatus,closed \\', '    -mfstatus,archived \\' },
+            t '\\',
+            { t { '\\', '    -mfstatus,' }, i(1, 'closed'),   t ' \\' },
+            { t { '\\', '    -mfstatus,' }, i(1, 'archived'), t ' \\' },
+        }),
+    }),
+}))
+
+use('spfs', fmta(
+    [=[stache -u<> | xargs -n1 basename | sed 's/\(\-[[:digit:]]\+\)*$//' | uniq]=],
+    { c(1, { i(1,'tt'), i(1,'U') }) }
+))
 
 ls.add_snippets("all", S)
