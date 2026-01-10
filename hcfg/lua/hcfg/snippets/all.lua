@@ -42,15 +42,19 @@ use("now", c(1, {
     mkdatenode('%s'),
 }))
 
-local btasks = [[
-stache \
-    -utt \
-    -mfstatus,closed \
-    -mfstatus,archived \
-    -ps -F '### %s' \
-    -pp -rFNONE \
-    -lF '- `~/.local/{.id}` _{.priority}_ {.description}'
-]]
-use('tsks',fmta(btasks, {}))
+local btasks = {
+    [[
+        stache \
+        -utt \
+        -mfstatus,closed \
+        -mfstatus,archived \
+        -ps -F '### %s' \
+        -pp -rFNONE \
+        -lF '- `~/.local/{.id}` _{.priority}_ {.description}'
+    ]],
+}
+use('tsks',c(1,{
+    fmta(btasks, {}),
+})
 
 ls.add_snippets("all", S)
