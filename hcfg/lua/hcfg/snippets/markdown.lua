@@ -39,15 +39,4 @@ use('dc', fmt(bdc, {
     i(1, '5 v 1 + 2 / p')
 }))
 
-local btasks = [[
-stache \
-    -utt \
-    -mf'status,closed' \
-    -mf'status,archived' \
-    -ps -F '### %s' \
-    -pp -rF NONE \
-    -l
-]]
-use('tsks',fmta(btasks, {}))
-
 ls.add_snippets("markdown", S)
