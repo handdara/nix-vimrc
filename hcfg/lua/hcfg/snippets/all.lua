@@ -48,24 +48,34 @@ use('tsks', c(1, {
             -utt \
             -mfstatus,closed \
             -mfstatus,archived \
-            -ps -F '### %s' \
+            -ps -F'### %s' \
             -pp -rFNONE \
             -lF <1>
     ]], {
-        i(1, '- `~/.local/{.id}` _{.priority}_ {.description}'),
+        i(1, [['- `~/.stache/{.id}` _{.priority}_ {.description}']]),
     }),
     fmta([[
         stache \
-            -fid,<1> \
-            -ntt \
-            -mfstatus,closed \
-            -mfstatus,archived \
-            -ps -F '### %s' \
-            -pp -rFNONE \
-            -lF '- `~/.local/{.id}` _{.priority}_ {.description}'
+            -ufid,<1> \
+            -ntt <2>
+            -ps -FNONE \
+            -pp -FNONE \
+            -lF '- `~/.stache/{.id}`\t{.status}\t{.priority}\t{.description}' \
+            | column -ts $'\t'
     ]], {
         i(1, 'id-prefix'),
+        c(2, {
+            t { '\\', '    -mfstatus,closed \\', '    -mfstatus,archived \\' },
+            t '\\',
+            { t { '\\', '    -mfstatus,' }, i(1, 'closed'),   t ' \\' },
+            { t { '\\', '    -mfstatus,' }, i(1, 'archived'), t ' \\' },
+        }),
     }),
 }))
+
+use('spfs', fmta(
+    [[stache -u<> | xargs -n1 basename | sed 's/\-[^-]\+$//' | uniq]],
+    { c(1, { i(1,'tt'), i(1,'U') }) }
+))
 
 ls.add_snippets("all", S)
