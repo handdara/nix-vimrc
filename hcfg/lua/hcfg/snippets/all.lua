@@ -45,24 +45,24 @@ use("now", c(1, {
 use('tsks', c(1, {
     fmta([[
         stache \
-        -utt \
-        -mfstatus,closed \
-        -mfstatus,archived \
-        -ps -F '### %s' \
-        -pp -rFNONE \
-        -lF <1>
+            -utt \
+            -mfstatus,closed \
+            -mfstatus,archived \
+            -ps -F '### %s' \
+            -pp -rFNONE \
+            -lF <1>
     ]], {
         i(1, '- `~/.local/{.id}` _{.priority}_ {.description}'),
     }),
     fmta([[
         stache \
-        -fid,<1> \
-        -ntt \
-        -mfstatus,closed \
-        -mfstatus,archived \
-        -ps -F '### %s' \
-        -pp -rFNONE \
-        -lF '- `~/.local/{.id}` _{.priority}_ {.description}'
+            -fid,<1> \
+            -ntt \
+            -mfstatus,closed \
+            -mfstatus,archived \
+            -ps -F '### %s' \
+            -pp -rFNONE \
+            -lF '- `~/.local/{.id}` _{.priority}_ {.description}'
     ]], {
         i(1, 'id-prefix'),
     }),
