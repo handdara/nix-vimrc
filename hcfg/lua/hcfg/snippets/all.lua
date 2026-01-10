@@ -74,7 +74,7 @@ use('tsks', c(1, {
 }))
 
 use('spfs', fmta(
-    [[stache -u<> | xargs -n1 basename | sed 's/\-[^-]\+$//' | uniq]],
+    [=[stache -u<> | xargs -n1 basename | sed 's/\(\-[[:digit:]]\+\)*$//' | uniq]=],
     { c(1, { i(1,'tt'), i(1,'U') }) }
 ))
 
