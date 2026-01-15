@@ -241,6 +241,7 @@ if foundObsidian then
         workspaces = {
             { name = "ansible", path = vim.fs.normalize '~/MEGA/ansible/' },
             { name = "tadok", path = vim.fs.normalize '~/code/tadok/' },
+            { name = "docs", path = vim.fs.normalize '~/Documents/' },
         },
         daily_notes = { folder = '1-active-quests/dailies' },
         notes_subdir = '0-quest-board/inbox',
