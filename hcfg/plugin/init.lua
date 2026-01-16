@@ -2,8 +2,11 @@ require 'hcfg-pre'
 
 pcall(function() require('nvim-surround').setup{} end)
 
+local foundStache = pcall(function() vim.system({'stache', '--version'}):wait() end)
+local foundGit = pcall(function() vim.system({'git', '--version'}):wait() end)
+
 local foundGitsigns = pcall(function() return require('gitsigns').setup {} end)
-if foundGitsigns then
+if foundGitsigns and foundGit then
     vim.cmd [[Gitsigns toggle_current_line_blame]]
     vim.cmd [[nnoremap ]h :Gitsigns next_hunk<cr>]]
     vim.cmd [[nnoremap [h :Gitsigns prev_hunk<cr>]]
@@ -53,7 +56,6 @@ if foundMiniFiles then
         pattern = 'MiniFilesWindowOpen',
         callback = function(args)
             local win_id = args.data.win_id
-            local config = vim.api.nvim_win_get_config(win_id)
             vim.wo[win_id].winblend = 0 -- mini.files window transparency
             vim.api.nvim_win_set_config(win_id, { border = 'double' })
         end,
@@ -218,7 +220,9 @@ if foundLuasnip then
     require 'hcfg.snippets.markdown'
     require 'hcfg.snippets.matlab'
     require 'hcfg.snippets.nix'
-    require 'hcfg.snippets.stache'
+    if foundStache then
+        require 'hcfg.snippets.stache'
+    end
     require 'hcfg.snippets.shell'
     require 'hcfg.snippets.typst'
 end
