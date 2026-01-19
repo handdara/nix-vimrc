@@ -1,9 +1,9 @@
 require 'hcfg-pre'
 
-pcall(function() require('nvim-surround').setup{} end)
+pcall(function() require('nvim-surround').setup {} end)
 
-local foundStache = pcall(function() vim.system({'stache', '--version'}):wait() end)
-local foundGit = pcall(function() vim.system({'git', '--version'}):wait() end)
+local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
+local foundGit = pcall(function() vim.system({ 'git', '--version' }):wait() end)
 
 local foundGitsigns = pcall(function() return require('gitsigns').setup {} end)
 if foundGitsigns and foundGit then
@@ -17,7 +17,7 @@ if foundGitsigns and foundGit then
     vim.cmd [[nnoremap <leader>hs :Gitsigns stage_hunk<cr>]]
     vim.cmd [[nnoremap <leader>hw :Gitsigns toggle_word_diff<cr>]]
     vim.cmd [[nnoremap <leader>hx :Gitsigns undo_stage_hunk<cr>]]
-    vim.keymap.set({'o', 'x'}, 'ih', ':Gitsigns select_hunk<cr>')
+    vim.keymap.set({ 'o', 'x' }, 'ih', ':Gitsigns select_hunk<cr>')
 end
 
 local foundMiniFiles = pcall(function() require 'mini.files' end)
@@ -68,12 +68,12 @@ if foundMiniFiles then
             vim.wo[win_id].relativenumber = true
         end,
     })
-    local set_mark = function (id, path, desc)
-        MiniFiles.set_bookmark(id, path, {desc = desc})
+    local set_mark = function(id, path, desc)
+        MiniFiles.set_bookmark(id, path, { desc = desc })
     end
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesExplorerOpen',
-        callback = function ()
+        callback = function()
             set_mark('c', vim.fn.getcwd, 'Working dir')
             set_mark('~', '~', 'Home dir')
         end,
@@ -148,8 +148,8 @@ vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 local capabilities = nil
 local foundBlink = pcall(function() require 'blink.cmp' end)
 if foundBlink then
-    require'blink.cmp'.setup {
-        enabled = function() return not vim.tbl_contains({ }, vim.bo.filetype) end,
+    require 'blink.cmp'.setup {
+        enabled = function() return not vim.tbl_contains({}, vim.bo.filetype) end,
         snippets = { preset = 'luasnip' },
         completion = {
             menu = {
@@ -172,13 +172,20 @@ if foundBlink then
     capabilities = require('blink.cmp').get_lsp_capabilities()
 end
 
-vim.lsp.enable('nil_ls', {capabilities = capabilities})
-vim.lsp.enable('lua_ls', {capabilities = capabilities})
-vim.lsp.enable('fortls', {capabilities = capabilities})
-vim.lsp.enable('bashls', {capabilities = capabilities})
-vim.lsp.enable('hls',    {capabilities = capabilities})
-vim.lsp.enable('marksman', {capabilities = capabilities})
-vim.lsp.enable('tinymist', {
+vim.lsp.config('nil_ls', {
+    capabilities = capabilities,
+    settings = {
+        ['nil'] = {
+            formatting = { command = { "alejandra", "--quiet" }, },
+        },
+    },
+})
+vim.lsp.config('lua_ls', { capabilities = capabilities })
+vim.lsp.config('fortls', { capabilities = capabilities })
+vim.lsp.config('bashls', { capabilities = capabilities })
+vim.lsp.config('hls', { capabilities = capabilities })
+vim.lsp.config('marksman', { capabilities = capabilities })
+vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
         formmaterMode = "typstyle",
@@ -186,33 +193,34 @@ vim.lsp.enable('tinymist', {
         sematicTokens = "disable",
     },
 })
+vim.lsp.enable({ 'tinymist', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'nil_ls' })
 
-local foundLuasnip = pcall(function() return require'luasnip' end)
+local foundLuasnip = pcall(function() return require 'luasnip' end)
 if foundLuasnip then
     local ls = require 'luasnip'
     ls.setup {
-        update_events = {"TextChanged", "TextChangedI"}
+        update_events = { "TextChanged", "TextChangedI" }
     }
-    vim.keymap.set({"i"}, "<C-j>", function()
+    vim.keymap.set({ "i" }, "<C-j>", function()
         if ls.expandable() then
             ls.expand()
         else
             if ls.jumpable(1) then ls.jump(1) end
         end
-    end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-k>", function()
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-k>", function()
         if ls.jumpable(-1) then ls.jump(-1) end
-    end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-h>", function()
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-h>", function()
         if ls.choice_active() then
             ls.change_choice(-1)
         end
-    end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-l>", function()
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-l>", function()
         if ls.choice_active() then
             ls.change_choice(1)
         end
-    end, {silent = true})
+    end, { silent = true })
     require 'hcfg.snippets.all'
     require 'hcfg.snippets.fortran'
     require 'hcfg.snippets.just'
@@ -227,25 +235,25 @@ if foundLuasnip then
     require 'hcfg.snippets.typst'
 end
 
-local foundObsidian = pcall(function() require'obsidian' end)
+local foundObsidian = pcall(function() require 'obsidian' end)
 if foundObsidian then
-    vim.keymap.set("n", "<leader>nt" , "<CMD>Obsidian tags<CR>")
-    vim.keymap.set("n", "<leader>na" , "<CMD>Obsidian today<CR>")
-    vim.keymap.set("n", "<leader>nA" , "<CMD>Obsidian tomorrow<CR>")
-    vim.keymap.set("n", "<leader>nz" , "<CMD>Obsidian yesterday<CR>")
-    vim.keymap.set("n", "<leader>nf" , "<CMD>Obsidian quick_switch<CR>")
-    vim.keymap.set("n", "<leader>nn" , "<CMD>Obsidian new<CR>")
-    vim.keymap.set("n", "<leader>nt" , "<CMD>Obsidian tags<CR>")
-    vim.keymap.set("n", "<leader>nb" , "<CMD>Obsidian backlinks<CR>")
-    vim.keymap.set("n", "<leader>ng" , "<CMD>Obsidian search<CR>")
-    vim.keymap.set("n", "<leader>nc" , "<CMD>Obsidian toc<CR>")
+    vim.keymap.set("n", "<leader>nt", "<CMD>Obsidian tags<CR>")
+    vim.keymap.set("n", "<leader>na", "<CMD>Obsidian today<CR>")
+    vim.keymap.set("n", "<leader>nA", "<CMD>Obsidian tomorrow<CR>")
+    vim.keymap.set("n", "<leader>nz", "<CMD>Obsidian yesterday<CR>")
+    vim.keymap.set("n", "<leader>nf", "<CMD>Obsidian quick_switch<CR>")
+    vim.keymap.set("n", "<leader>nn", "<CMD>Obsidian new<CR>")
+    vim.keymap.set("n", "<leader>nt", "<CMD>Obsidian tags<CR>")
+    vim.keymap.set("n", "<leader>nb", "<CMD>Obsidian backlinks<CR>")
+    vim.keymap.set("n", "<leader>ng", "<CMD>Obsidian search<CR>")
+    vim.keymap.set("n", "<leader>nc", "<CMD>Obsidian toc<CR>")
     vim.keymap.set("n", "<leader>nls", "<CMD>Obsidian links<CR>")
     vim.opt.conceallevel = 1
     require('obsidian').setup {
         workspaces = {
             { name = "ansible", path = vim.fs.normalize '~/MEGA/ansible/' },
-            { name = "tadok", path = vim.fs.normalize '~/code/tadok/' },
-            { name = "docs", path = vim.fs.normalize '~/Documents/' },
+            { name = "tadok",   path = vim.fs.normalize '~/code/tadok/' },
+            { name = "docs",    path = vim.fs.normalize '~/Documents/' },
         },
         daily_notes = { folder = '1-active-quests/dailies' },
         notes_subdir = '0-quest-board/inbox',
@@ -288,7 +296,7 @@ if foundObsidian then
                     ["<leader>nll"] = { modes = 'v', action = ":Obsidian link<CR>", },
                 }
                 for combos, dat in pairs(maps) do
-                    vim.keymap.set(dat.modes, combos, dat.action, {buffer = note.bufnr} )
+                    vim.keymap.set(dat.modes, combos, dat.action, { buffer = note.bufnr })
                 end
             end,
         },
