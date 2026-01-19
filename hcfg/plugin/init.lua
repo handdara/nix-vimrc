@@ -176,7 +176,7 @@ vim.lsp.config('nil_ls', {
     capabilities = capabilities,
     settings = {
         ['nil'] = {
-            formatting = { command = { "alejandra", "--quiet" }, },
+            formatting = { command = { "nixpkgs-fmt" }, },
         },
     },
 })
