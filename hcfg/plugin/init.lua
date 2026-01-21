@@ -2,10 +2,16 @@ require 'hcfg-pre'
 
 pcall(function() require('nvim-surround').setup {} end)
 
-local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
+local foundBlink = pcall(function() require 'blink.cmp' end)
+local foundFzfLua = pcall(function() require 'fzf-lua' end)
 local foundGit = pcall(function() vim.system({ 'git', '--version' }):wait() end)
-
 local foundGitsigns = pcall(function() return require('gitsigns').setup {} end)
+local foundLuasnip = pcall(function() return require 'luasnip' end)
+local foundMiniFiles = pcall(function() require 'mini.files' end)
+local foundObsidian = pcall(function() require 'obsidian' end)
+local foundOil = pcall(function() require 'oil' end)
+local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
+
 if foundGitsigns and foundGit then
     vim.cmd [[Gitsigns toggle_current_line_blame]]
     vim.cmd [[nnoremap ]h :Gitsigns next_hunk<cr>]]
@@ -20,7 +26,6 @@ if foundGitsigns and foundGit then
     vim.keymap.set({ 'o', 'x' }, 'ih', ':Gitsigns select_hunk<cr>')
 end
 
-local foundMiniFiles = pcall(function() require 'mini.files' end)
 if foundMiniFiles then
     require('mini.files').setup({
         content = { filter = nil, prefix = nil, sort = nil, },
@@ -80,19 +85,57 @@ if foundMiniFiles then
     })
 end
 
-local foundOil = pcall(function() require 'oil' end)
 if foundOil then
+    local oil = require("oil")
     local detail = false
-    require("oil").setup({
+    local simpleCols = {
+        { "icon", add_padding = true },
+    }
+    local detailedCols = {
+        { "icon",      add_padding = true },
+        { "size",      highlight = "Special", },
+        { "mtime",     highlight = "Normal", },
+        { "birthtime", highlight = "Special", },
+    }
+    oil.setup({
+        columns = simpleCols,
         keymaps = {
+            ["~"] = { "<cmd>Oil ~<CR>", desc = "Open home directory" },
+            ["<leader>sf"] = {
+                function()
+                    if foundFzfLua then
+                        require("fzf-lua").files({ cwd = oil.get_current_dir() })
+                    end
+                end,
+                mode = "n",
+                nowait = true,
+                desc = "Find files in the current directory"
+            },
+            ["<leader>;"] = {
+                "actions.open_cmdline",
+                opts = {
+                    shorten_path = true,
+                    modify = ":h",
+                },
+                desc = "Open the command line with the current directory as an argument",
+            },
+            ["<S-Up>"] = "actions.preview_scroll_up",
+            ["<S-Down>"] = "actions.preview_scroll_down",
+            ["gyy"] = "actions.yank_entry",
+            ["<leader><cr>"] = {
+                callback = function()
+                    vim.cmd("tab term cd '" .. oil.get_current_dir() .. "' && bash")
+                end,
+                desc = "Open a terminal in a new tab at the current directory",
+            },
             ["gd"] = {
                 desc = "Toggle file detail view",
                 callback = function()
                     detail = not detail
                     if detail then
-                        require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+                        oil.set_columns(detailedCols)
                     else
-                        require("oil").set_columns({ "icon" })
+                        oil.set_columns(simpleCols)
                     end
                 end,
             },
@@ -101,7 +144,6 @@ if foundOil then
     vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
 end
 
-local foundFzfLua = pcall(function() require 'fzf-lua' end)
 if foundFzfLua then
     vim.cmd [[FzfLua register_ui_select]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
@@ -146,7 +188,6 @@ end
 vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 
 local capabilities = nil
-local foundBlink = pcall(function() require 'blink.cmp' end)
 if foundBlink then
     require 'blink.cmp'.setup {
         enabled = function() return not vim.tbl_contains({}, vim.bo.filetype) end,
@@ -195,7 +236,6 @@ vim.lsp.config('tinymist', {
 })
 vim.lsp.enable({ 'tinymist', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'nil_ls' })
 
-local foundLuasnip = pcall(function() return require 'luasnip' end)
 if foundLuasnip then
     local ls = require 'luasnip'
     ls.setup {
@@ -235,8 +275,21 @@ if foundLuasnip then
     require 'hcfg.snippets.typst'
 end
 
-local foundObsidian = pcall(function() require 'obsidian' end)
 if foundObsidian then
+    local obsidian = require('obsidian')
+    local wksps = { '~/MEGA/ansible/', '~/code/tadok/', '~/Documents/' }
+    local foundWksp = false
+    local wkspPath
+    for _, wksp in ipairs(wksps) do
+        wkspPath = obsidian.Path.new(wksp)
+        if wkspPath:exists() and wkspPath:is_dir() then
+            foundWksp = true
+        end
+    end
+    if not foundWksp then
+        vim.notify('No obsidian workspaces found, creating one at ' .. wkspPath.filename)
+        wkspPath:mkdir({ parents = true })
+    end
     vim.keymap.set("n", "<leader>nt", "<CMD>Obsidian tags<CR>")
     vim.keymap.set("n", "<leader>na", "<CMD>Obsidian today<CR>")
     vim.keymap.set("n", "<leader>nA", "<CMD>Obsidian tomorrow<CR>")
