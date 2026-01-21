@@ -21,21 +21,44 @@
 let
 
   tsParsers = with vimPlugins.nvim-treesitter-parsers; [
-    asm        gnuplot perl
-    awk        haskell python
-    bibtex     html    r
-    cmake      ini     regex
-    cpp        jq      rust
-    css        json    sql
-    csv        just    tcl
-    fish       kdl     tmux
-    fortran    latex   typst
-    gitcommit  luadoc  yaml
-    git_rebase make    zig
-    gitignore  nix     
+    asm
+    gnuplot
+    perl
+    awk
+    haskell
+    python
+    bibtex
+    html
+    r
+    cmake
+    ini
+    regex
+    cpp
+    jq
+    rust
+    css
+    json
+    sql
+    csv
+    just
+    tcl
+    fish
+    kdl
+    tmux
+    fortran
+    latex
+    typst
+    gitcommit
+    luadoc
+    yaml
+    git_rebase
+    make
+    zig
+    gitignore
+    nix
   ];
-  
-  colorthemes = with vimPlugins; [ 
+
+  colorthemes = with vimPlugins; [
     boo-colorscheme-nvim
     eva01-vim
     falcon
@@ -95,19 +118,19 @@ let
     cat << EOF >"$out/pack/${packageName}/start/hcfg-pre/lua/hcfg-pre.lua"
     ${extraLuaPreConfig}
     EOF
-    
+
     ${lib.concatMapStringsSep "\n" (
       plugin: "ln -vsfT ${plugin} $out/pack/${packageName}/start/${lib.getName plugin}"
     ) startPlugins}
   '';
 
-  pathAdditions = [  
-    gcc 
+  pathAdditions = [
+    gcc
     gnumake
-    pkg-config 
-    python3 
-    nodejs_20 
-    luajitPackages.jsregexp 
+    pkg-config
+    python3
+    nodejs_20
+    luajitPackages.jsregexp
   ];
 in
 symlinkJoin {
