@@ -302,7 +302,7 @@ if foundObsidian then
     vim.keymap.set("n", "<leader>nc", "<CMD>Obsidian toc<CR>")
     vim.keymap.set("n", "<leader>nls", "<CMD>Obsidian links<CR>")
     vim.opt.conceallevel = 1
-    require('obsidian').setup {
+    obsidian.setup {
         workspaces = {
             { name = "ansible", path = vim.fs.normalize '~/MEGA/ansible/' },
             { name = "tadok",   path = vim.fs.normalize '~/code/tadok/' },
