@@ -110,6 +110,7 @@ if foundOil then
         },
     })
     vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
+    vim.keymap.set('n', '<leader>O', '<cmd>tabedit .<cr>', { desc = '[O]pen file browser in new tab' })
 end
 -- Mini.Files setup }}}
 
