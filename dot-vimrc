@@ -5,6 +5,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set path+=**
+set path+=~/.stache/**
 set tabstop=4 softtabstop=4 shiftwidth=4
 set scrolloff=5
 set signcolumn=yes
