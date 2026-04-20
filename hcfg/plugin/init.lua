@@ -124,7 +124,7 @@ if foundOil then
             ["gyy"] = "actions.yank_entry",
             ["<leader><cr>"] = {
                 callback = function()
-                    vim.cmd("tab term cd '" .. oil.get_current_dir() .. "' && bash")
+                    vim.cmd("tab term cd '" .. oil.get_current_dir() .. "' && exec $0")
                 end,
                 desc = "Open a terminal in a new tab at the current directory",
             },
