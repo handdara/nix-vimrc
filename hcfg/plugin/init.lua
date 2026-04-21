@@ -230,7 +230,7 @@ vim.lsp.config('marksman', { capabilities = capabilities })
 vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
-        formmaterMode = "typstyle",
+        formatterMode = "typstyle",
         -- exportPdf = "onType", -- defaults to "never"
         sematicTokens = "disable",
     },
