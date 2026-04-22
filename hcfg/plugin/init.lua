@@ -1,5 +1,7 @@
 require 'hcfg-pre'
 
+require('vim._core.ui2').enable()
+
 pcall(function() require('nvim-surround').setup {} end)
 
 local foundBlink = pcall(function() require 'blink.cmp' end)
