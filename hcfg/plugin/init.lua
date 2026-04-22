@@ -190,7 +190,7 @@ end
 
 vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 
-local capabilities = nil
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 if foundBlink then
     require 'blink.cmp'.setup {
         enabled = function() return not vim.tbl_contains({}, vim.bo.filetype) end,
@@ -213,7 +213,7 @@ if foundBlink then
             ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
         },
     }
-    capabilities = require('blink.cmp').get_lsp_capabilities()
+    capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 end
 
 vim.lsp.config('nil_ls', {
