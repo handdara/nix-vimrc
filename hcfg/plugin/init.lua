@@ -184,6 +184,8 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>sx :FzfLua files cwd=~/.config fd_opts=-u<cr>]]
     vim.cmd [[nnoremap <leader>sz :FzfLua zoxide<cr>]]
     vim.cmd [[xnoremap <leader>/ :FzfLua grep_visual<cr>]]
+    vim.cmd [[inoremap <C-G>f <esc>:FzfLua complete_file<cr>]]
+    vim.cmd [[inoremap <C-G>p <esc>:FzfLua complete_path<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
