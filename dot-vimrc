@@ -24,7 +24,6 @@ let g:markdown_syntax_conceal = 0
 inoremap jk <esc>
 nnoremap : ;
 nnoremap ; :
-nnoremap zl :loadview<cr>
 nnoremap <C-S-M-Down> 5<C-w>-
 nnoremap <C-S-M-Left> 5<C-w><
 nnoremap <C-S-M-Right> 5<C-w>>
@@ -43,39 +42,44 @@ nnoremap <leader>v<cr> :vsp +term\ bash<cr>
 nnoremap <leader>w :mkview<cr>:update<cr>
 nnoremap <leader>y "+y
 nnoremap <space> <nop>
+nnoremap zl :loadview<cr>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
 tnoremap <C-w><C-g> <C-\><C-n>g
 tnoremap <C-w><C-w> <C-\><C-n><C-w>
+xnoremap <leader>a& !column -ts& -o&<cr>
+xnoremap <leader>a, !column -ts, -o,<cr>
+xnoremap <leader>a; !column -ts; -o;<cr>
+xnoremap <leader>a= !column -ts= -o=<cr>
 xnoremap <leader>b !boxes -d parchment
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
 xnoremap <leader>x !bash<cr>
 
-"statusline
-set statusline=
-set statusline+=%f                  " File
-set statusline+=%<                  " Where to start cutting if length is exceeded
-set statusline+=%w
-set statusline+=%m
-set statusline+=%r
-set statusline+=%=
-set statusline+=%{system('printf\ \"%s\"\ `whoami`')}
-set statusline+=::
-set statusline+=%{hostname()}
-if has_key(environ(), 'SSH_TTY')
-    set statusline+=\ via\ ssh
-    set statusline+=\                   " Separator
-endif
-if has_key(environ(), 'TMUX')
-    set statusline+=\ [
-    set statusline+=tmux
-    "set statusline+=system("tmux display-message -p '#S'")
-    set statusline+=]                    " Separator
-endif
-set statusline+=%=
-set statusline+=%y                  " Filetype of the file
-set statusline+=\ -\                " Separator
-set statusline+=%l,%c%V
-set statusline+=\                   " Separator
-set statusline+=%P
+"" statusline
+"set statusline=
+"set statusline+=%f                  " File
+"set statusline+=%<                  " Where to start cutting if length is exceeded
+"set statusline+=%w
+"set statusline+=%m
+"set statusline+=%r
+"set statusline+=%=
+"set statusline+=%{system('printf\ \"%s\"\ `whoami`')}
+"set statusline+=::
+"set statusline+=%{hostname()}
+"if has_key(environ(), 'SSH_TTY')
+"    set statusline+=\ via\ ssh
+"    set statusline+=\                   " Separator
+"endif
+"if has_key(environ(), 'TMUX')
+"    set statusline+=\ [
+"    set statusline+=tmux
+"    "set statusline+=system("tmux display-message -p '#S'")
+"    set statusline+=]                    " Separator
+"endif
+"set statusline+=%=
+"set statusline+=%y                  " Filetype of the file
+"set statusline+=\ -\                " Separator
+"set statusline+=%l,%c%V
+"set statusline+=\                   " Separator
+"set statusline+=%P
