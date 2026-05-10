@@ -27,7 +27,7 @@ case {1} in
         ;;
     *)
         echo 'whoops!' >&2
-        exit -1 
+        exit 1
         ;;
 esac 
 ]]
