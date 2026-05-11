@@ -76,6 +76,15 @@ let
         hash = "sha256-5VgsVaClE3cH5uVlRSHEFV3WofHw2P+3rBMF/lQEm+0=";
       };
     })
+    (vimUtils.buildVimPlugin {
+      name = "nvimgelion";
+      src = fetchFromGitHub {
+        owner = "nyngwang";
+        repo = "nvimgelion";
+        rev = "28f3b71f8545ff002a1c08ca928799cdf660eccf";
+        hash = "sha256-dZHN0fmfhl7qBQh/FRMVpj1i7oTgEXUX4xTnMwEdJAU=";
+      };
+    })
   ];
 
   plugins = with vimPlugins; [
