@@ -231,6 +231,7 @@ vim.lsp.config('fortls', { capabilities = capabilities })
 vim.lsp.config('bashls', { capabilities = capabilities })
 vim.lsp.config('hls', { capabilities = capabilities })
 vim.lsp.config('marksman', { capabilities = capabilities })
+vim.lsp.config('matlab_ls', { capabilities = capabilities })
 vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
