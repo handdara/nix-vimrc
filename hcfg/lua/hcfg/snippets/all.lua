@@ -26,6 +26,7 @@ end
 
 use("day", c(1, {
     mkdatenode('%F'),
+    mkdatenode('%Y%m%0d'),
     mkdatenode('%0d%b%Y'),
     mkdatenode('%0d %b %Y'),
     mkdatenode('%A, %B %0d, %Y'),
