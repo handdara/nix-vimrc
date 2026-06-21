@@ -341,7 +341,11 @@ if foundObsidian then
             end
             return path:with_suffix(".md")
         end,
-        preferred_link_style = "wiki",
+        link = {
+            style = "wiki",
+            format = "shortest",
+            auto_update = true,
+        },
         frontmatter = { enabled = true },
         search = {
             sort_by = "modified",
