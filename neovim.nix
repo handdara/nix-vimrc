@@ -83,6 +83,15 @@ let
         hash = "sha256-dZHN0fmfhl7qBQh/FRMVpj1i7oTgEXUX4xTnMwEdJAU=";
       };
     })
+    (vimUtils.buildVimPlugin {
+      name = "oil.nvim";
+      src = fetchFromGitHub {
+        owner = "stevearc";
+        repo = "oil.nvim";
+        rev = "b73018b75affd13fa38e2fc94ef753b465f770d7";
+        hash = "sha256-Q8t2GYOEBWcR19Ht2ZCx5FEusscY76LhXVae4ZW/3j0=";
+      };
+    })
   ];
 
   plugins = with vimPlugins; [
@@ -95,7 +104,6 @@ let
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
-    oil-nvim
     otter-nvim
     plenary-nvim
     undotree
