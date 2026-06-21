@@ -39,6 +39,7 @@ use("tim", c(1, {
 
 use("now", c(1, {
     mkdatenode('%F %H%M'),
+    mkdatenode('%F %H:%M:%S'),
     mkdatenode('%s'),
 }))
 

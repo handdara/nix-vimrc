@@ -4,8 +4,8 @@ set rnu nu lbr spr sb udf et nohls ic scs bri
 if (has("termguicolors"))
   set termguicolors
 endif
-set path+=**
 set path+=~/.stache/**
+set path+=**
 set tabstop=4 softtabstop=4 shiftwidth=4
 set scrolloff=5
 set signcolumn=yes
