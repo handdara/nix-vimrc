@@ -63,10 +63,8 @@ let
     eva01-vim
     falcon
     lackluster-nvim
-    melange-nvim
     rose-pine
     vim-paper
-    modus-themes-nvim
     (vimUtils.buildVimPlugin {
       name = "monalisa-nvim";
       src = fetchFromGitHub {
