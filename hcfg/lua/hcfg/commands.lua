@@ -17,3 +17,6 @@ vim.api.nvim_create_user_command('Fdh',
 vim.api.nvim_create_user_command('Format', function(_)
     vim.lsp.buf.format()
 end, { desc = 'Format current buffer with LSP' })
+vim.api.nvim_create_user_command('ToPDF', function(_)
+    vim.cmd [[!nix-shell -p typst --run 'pandoc --pdf-engine=typst -V "mainfont=Tex Gyre Heros" -o "$(echo % | sed "s/\.\w\+/.pdf/")" %']]
+end, { desc = 'Format current buffer with LSP' })
