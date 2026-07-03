@@ -29,10 +29,18 @@ nnoremap <C-S-M-Left> 5<C-w><
 nnoremap <C-S-M-Right> 5<C-w>>
 nnoremap <C-S-M-Up> 5<C-w>+
 nnoremap <leader><cr> :tab term bash<cr>
+nnoremap <leader>ct :tabclose<cr>
 nnoremap <leader>fo :Format<cr>
 nnoremap <leader>fw :Format<cr>:update<cr>
+nnoremap <leader>jh <C-w>h
+nnoremap <leader>jj <C-w>j
+nnoremap <leader>jk <C-w>k
+nnoremap <leader>jl <C-w>l
+nnoremap <leader><leader>x :.so<cr>
 nnoremap <leader>lg :tab term lazygit<cr>i
 nnoremap <leader>mg :tab term mg<cr>
+nnoremap <leader>pd <C-d>
+nnoremap <leader>pu <C-u>
 nnoremap <leader>s<cr> :sp +term\ bash<cr>
 nnoremap <leader>sf :find *
 nnoremap <leader>sh :vert help 
@@ -52,6 +60,7 @@ xnoremap <leader>a, !column -ts, -o,<cr>
 xnoremap <leader>a; !column -ts; -o;<cr>
 xnoremap <leader>a= !column -ts= -o=<cr>
 xnoremap <leader>b !boxes -d parchment
+xnoremap <leader><leader>x :so<cr>
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
 xnoremap <leader>x !bash<cr>
