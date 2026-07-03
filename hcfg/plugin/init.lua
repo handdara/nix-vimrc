@@ -3,7 +3,6 @@ require 'hcfg-pre'
 require('vim._core.ui2').enable()
 
 pcall(function() require('nvim-surround').setup {} end)
-
 local foundBlink = pcall(function() require 'blink.cmp' end)
 local foundFzfLua = pcall(function() require 'fzf-lua' end)
 local foundGit = pcall(function() vim.system({ 'git', '--version' }):wait() end)
@@ -14,6 +13,7 @@ local foundObsidian = pcall(function() require 'obsidian' end)
 local foundOil = pcall(function() require 'oil' end)
 local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
 
+-- Gitsigns setup {{{
 if foundGitsigns and foundGit then
     vim.cmd [[Gitsigns toggle_current_line_blame]]
     vim.cmd [[nnoremap ]h :Gitsigns next_hunk<cr>]]
@@ -27,7 +27,9 @@ if foundGitsigns and foundGit then
     vim.cmd [[nnoremap <leader>hx :Gitsigns undo_stage_hunk<cr>]]
     vim.keymap.set({ 'o', 'x' }, 'ih', ':Gitsigns select_hunk<cr>')
 end
+-- Gitsigns setup }}}
 
+-- Mini.Files setup {{{
 if foundMiniFiles then
     require('mini.files').setup({
         content = { filter = nil, prefix = nil, sort = nil, },
@@ -86,7 +88,9 @@ if foundMiniFiles then
         end,
     })
 end
+-- Mini.Files setup }}}
 
+-- oil.nvim setup {{{
 if foundOil then
     local oil = require("oil")
     local detail = false
@@ -146,7 +150,9 @@ if foundOil then
     vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
     vim.keymap.set('n', '<leader>O', '<cmd>tabedit .<cr>', { desc = '[O]pen file browser in new tab' })
 end
+-- oil setup }}}
 
+-- fzf-lua setup {{{
 if foundFzfLua then
     vim.cmd [[FzfLua register_ui_select]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
@@ -189,9 +195,11 @@ if foundFzfLua then
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
+-- fzf-lua setup }}}
 
 vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 
+-- LSPs setup {{{
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 if foundBlink then
     require 'blink.cmp'.setup {
@@ -241,7 +249,9 @@ vim.lsp.config('tinymist', {
     },
 })
 vim.lsp.enable({ 'tinymist', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'nil_ls' })
+-- LSPs setup }}}
 
+-- Luasnip setup {{{
 if foundLuasnip then
     local ls = require 'luasnip'
     ls.setup {
@@ -280,7 +290,9 @@ if foundLuasnip then
     require 'hcfg.snippets.shell'
     require 'hcfg.snippets.typst'
 end
+-- Luasnip setup }}}
 
+-- obsidian-nvim setup {{{
 if foundObsidian then
     local obsidian = require('obsidian')
     local wksps = { '~/MEGA/ansible/', '~/code/tadok/', '~/Documents/' }
@@ -386,6 +398,7 @@ if foundObsidian then
         },
     }
 end
+-- obsidian-nvim setup }}}
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'
