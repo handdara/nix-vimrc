@@ -1,7 +1,7 @@
 require 'hcfg-pre'
 
 require('vim._core.ui2').enable()
-vim.o.winborder='rounded' -- other opts: 'bold' 'double' '+,-,+,|,+,-,+,|'
+vim.o.winborder = 'rounded' -- other opts: 'bold' 'double' '+,-,+,|,+,-,+,|'
 
 pcall(function() require('nvim-surround').setup {} end)
 local foundBlink = pcall(function() require 'blink.cmp' end)
@@ -241,6 +241,7 @@ vim.lsp.config('bashls', { capabilities = capabilities })
 vim.lsp.config('hls', { capabilities = capabilities })
 vim.lsp.config('marksman', { capabilities = capabilities })
 vim.lsp.config('matlab_ls', { capabilities = capabilities })
+vim.lsp.config('ols', { capabilities = capabilities })
 vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
@@ -249,7 +250,7 @@ vim.lsp.config('tinymist', {
         sematicTokens = "disable",
     },
 })
-vim.lsp.enable({ 'tinymist', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'nil_ls' })
+vim.lsp.enable({ 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', })
 -- LSPs setup }}}
 
 -- Luasnip setup {{{
