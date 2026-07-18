@@ -250,7 +250,7 @@ vim.lsp.config('tinymist', {
         sematicTokens = "disable",
     },
 })
-vim.lsp.enable({ 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', })
+vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', })
 -- LSPs setup }}}
 
 -- Luasnip setup {{{
