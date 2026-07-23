@@ -7,7 +7,7 @@
   luajitPackages,
   makeWrapper,
   neovim-unwrapped,
-  nodejs_20,
+  nodejs_22,
   pkg-config,
   python3,
   runCommandLocal,
@@ -136,7 +136,7 @@ let
     gnumake
     pkg-config
     python3
-    nodejs_20
+    nodejs_22
     luajitPackages.jsregexp
   ];
 in
