@@ -1,7 +1,9 @@
 require 'hcfg-pre'
 
-pcall(function() require('nvim-surround').setup {} end)
+require('vim._core.ui2').enable()
+vim.o.winborder = 'rounded' -- other opts: 'bold' 'double' '+,-,+,|,+,-,+,|'
 
+pcall(function() require('nvim-surround').setup {} end)
 local foundBlink = pcall(function() require 'blink.cmp' end)
 local foundFzfLua = pcall(function() require 'fzf-lua' end)
 local foundGit = pcall(function() vim.system({ 'git', '--version' }):wait() end)
@@ -12,6 +14,7 @@ local foundObsidian = pcall(function() require 'obsidian' end)
 local foundOil = pcall(function() require 'oil' end)
 local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
 
+-- Gitsigns setup {{{
 if foundGitsigns and foundGit then
     vim.cmd [[Gitsigns toggle_current_line_blame]]
     vim.cmd [[nnoremap ]h :Gitsigns next_hunk<cr>]]
@@ -25,7 +28,9 @@ if foundGitsigns and foundGit then
     vim.cmd [[nnoremap <leader>hx :Gitsigns undo_stage_hunk<cr>]]
     vim.keymap.set({ 'o', 'x' }, 'ih', ':Gitsigns select_hunk<cr>')
 end
+-- Gitsigns setup }}}
 
+-- Mini.Files setup {{{
 if foundMiniFiles then
     require('mini.files').setup({
         content = { filter = nil, prefix = nil, sort = nil, },
@@ -84,7 +89,9 @@ if foundMiniFiles then
         end,
     })
 end
+-- Mini.Files setup }}}
 
+-- oil.nvim setup {{{
 if foundOil then
     local oil = require("oil")
     local detail = false
@@ -124,7 +131,7 @@ if foundOil then
             ["gyy"] = "actions.yank_entry",
             ["<leader><cr>"] = {
                 callback = function()
-                    vim.cmd("tab term cd '" .. oil.get_current_dir() .. "' && bash")
+                    vim.cmd("tab term cd '" .. oil.get_current_dir() .. "' && exec $0")
                 end,
                 desc = "Open a terminal in a new tab at the current directory",
             },
@@ -142,8 +149,11 @@ if foundOil then
         },
     })
     vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
+    vim.keymap.set('n', '<leader>O', '<cmd>tabedit .<cr>', { desc = '[O]pen file browser in new tab' })
 end
+-- oil setup }}}
 
+-- fzf-lua setup {{{
 if foundFzfLua then
     vim.cmd [[FzfLua register_ui_select]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
@@ -181,13 +191,17 @@ if foundFzfLua then
     vim.cmd [[nnoremap <leader>sx :FzfLua files cwd=~/.config fd_opts=-u<cr>]]
     vim.cmd [[nnoremap <leader>sz :FzfLua zoxide<cr>]]
     vim.cmd [[xnoremap <leader>/ :FzfLua grep_visual<cr>]]
+    vim.cmd [[inoremap <C-G>f <esc>:FzfLua complete_file<cr>]]
+    vim.cmd [[inoremap <C-G>p <esc>:FzfLua complete_path<cr>]]
     vim.keymap.set('n', 'grr', ':FzfLua lsp_references<cr>', { desc = 'Fzf LSP references' })
     vim.keymap.set('n', 'grd', ':FzfLua lsp_definitions<cr>', { desc = 'Fzf LSP references' })
 end
+-- fzf-lua setup }}}
 
 vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 
-local capabilities = nil
+-- LSPs setup {{{
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 if foundBlink then
     require 'blink.cmp'.setup {
         enabled = function() return not vim.tbl_contains({}, vim.bo.filetype) end,
@@ -210,7 +224,7 @@ if foundBlink then
             ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
         },
     }
-    capabilities = require('blink.cmp').get_lsp_capabilities()
+    capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 end
 
 vim.lsp.config('nil_ls', {
@@ -226,16 +240,20 @@ vim.lsp.config('fortls', { capabilities = capabilities })
 vim.lsp.config('bashls', { capabilities = capabilities })
 vim.lsp.config('hls', { capabilities = capabilities })
 vim.lsp.config('marksman', { capabilities = capabilities })
+vim.lsp.config('matlab_ls', { capabilities = capabilities })
+vim.lsp.config('ols', { capabilities = capabilities })
 vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
-        formmaterMode = "typstyle",
+        formatterMode = "typstyle",
         -- exportPdf = "onType", -- defaults to "never"
         sematicTokens = "disable",
     },
 })
-vim.lsp.enable({ 'tinymist', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'nil_ls' })
+vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', })
+-- LSPs setup }}}
 
+-- Luasnip setup {{{
 if foundLuasnip then
     local ls = require 'luasnip'
     ls.setup {
@@ -274,7 +292,9 @@ if foundLuasnip then
     require 'hcfg.snippets.shell'
     require 'hcfg.snippets.typst'
 end
+-- Luasnip setup }}}
 
+-- obsidian-nvim setup {{{
 if foundObsidian then
     local obsidian = require('obsidian')
     local wksps = { '~/MEGA/ansible/', '~/code/tadok/', '~/Documents/' }
@@ -335,7 +355,11 @@ if foundObsidian then
             end
             return path:with_suffix(".md")
         end,
-        preferred_link_style = "wiki",
+        link = {
+            style = "wiki",
+            format = "shortest",
+            auto_update = true,
+        },
         frontmatter = { enabled = true },
         search = {
             sort_by = "modified",
@@ -376,6 +400,7 @@ if foundObsidian then
         },
     }
 end
+-- obsidian-nvim setup }}}
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'

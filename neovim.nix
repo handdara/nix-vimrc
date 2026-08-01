@@ -7,7 +7,7 @@
   luajitPackages,
   makeWrapper,
   neovim-unwrapped,
-  nodejs_20,
+  nodejs_22,
   pkg-config,
   python3,
   runCommandLocal,
@@ -63,7 +63,6 @@ let
     eva01-vim
     falcon
     lackluster-nvim
-    melange-nvim
     rose-pine
     vim-paper
     (vimUtils.buildVimPlugin {
@@ -76,12 +75,21 @@ let
       };
     })
     (vimUtils.buildVimPlugin {
-      name = "halfspace";
-      src = fetchFromGitLab {
-        owner = "sxwpb";
-        repo = "halfspace.nvim";
-        rev = "23b367771f694479771735150311d41830133f95";
-        hash = "sha256-VD8l1dPzYB5ccCdo563mnAtZ0DWPiT3zY40vRJnmlgs=";
+      name = "nvimgelion";
+      src = fetchFromGitHub {
+        owner = "nyngwang";
+        repo = "nvimgelion";
+        rev = "28f3b71f8545ff002a1c08ca928799cdf660eccf";
+        hash = "sha256-dZHN0fmfhl7qBQh/FRMVpj1i7oTgEXUX4xTnMwEdJAU=";
+      };
+    })
+    (vimUtils.buildVimPlugin {
+      name = "oil.nvim";
+      src = fetchFromGitHub {
+        owner = "stevearc";
+        repo = "oil.nvim";
+        rev = "b73018b75affd13fa38e2fc94ef753b465f770d7";
+        hash = "sha256-Q8t2GYOEBWcR19Ht2ZCx5FEusscY76LhXVae4ZW/3j0=";
       };
     })
   ];
@@ -96,7 +104,6 @@ let
     nvim-treesitter
     nvim-web-devicons
     obsidian-nvim
-    oil-nvim
     otter-nvim
     plenary-nvim
     undotree
@@ -129,7 +136,7 @@ let
     gnumake
     pkg-config
     python3
-    nodejs_20
+    nodejs_22
     luajitPackages.jsregexp
   ];
 in

@@ -4,11 +4,13 @@ set rnu nu lbr spr sb udf et nohls ic scs bri
 if (has("termguicolors"))
   set termguicolors
 endif
+set path+=~/.stache/**
 set path+=**
 set tabstop=4 softtabstop=4 shiftwidth=4
 set scrolloff=5
 set signcolumn=yes
 set formatoptions-=t
+set foldmethod=marker
 filetype plugin indent on
 syntax on
 
@@ -16,7 +18,7 @@ let fortran_free_source=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
 
-let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'haskell', 'vim']
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'lua', 'nix', 'yaml', 'json', 'dash=sh', 'sh', 'haskell', 'vim', 'typst']
 let g:markdown_syntax_conceal = 0
 
 "maps
@@ -28,10 +30,18 @@ nnoremap <C-S-M-Left> 5<C-w><
 nnoremap <C-S-M-Right> 5<C-w>>
 nnoremap <C-S-M-Up> 5<C-w>+
 nnoremap <leader><cr> :tab term bash<cr>
+nnoremap <leader>ct :tabclose<cr>
 nnoremap <leader>fo :Format<cr>
 nnoremap <leader>fw :Format<cr>:update<cr>
+nnoremap <leader>jh <C-w>h
+nnoremap <leader>jj <C-w>j
+nnoremap <leader>jk <C-w>k
+nnoremap <leader>jl <C-w>l
+nnoremap <leader><leader>x :.so<cr>
 nnoremap <leader>lg :tab term lazygit<cr>i
 nnoremap <leader>mg :tab term mg<cr>
+nnoremap <leader>pd <C-d>
+nnoremap <leader>pu <C-u>
 nnoremap <leader>s<cr> :sp +term\ bash<cr>
 nnoremap <leader>sf :find *
 nnoremap <leader>sh :vert help 
@@ -41,39 +51,45 @@ nnoremap <leader>v<cr> :vsp +term\ bash<cr>
 nnoremap <leader>w :mkview<cr>:update<cr>
 nnoremap <leader>y "+y
 nnoremap <space> <nop>
+nnoremap zl :loadview<cr>
 tnoremap <C-c><C-c> <C-c>
 tnoremap <C-c> <nop>
 tnoremap <C-w><C-g> <C-\><C-n>g
 tnoremap <C-w><C-w> <C-\><C-n><C-w>
+xnoremap <leader>a& !column -ts& -o&<cr>
+xnoremap <leader>a, !column -ts, -o,<cr>
+xnoremap <leader>a; !column -ts; -o;<cr>
+xnoremap <leader>a= !column -ts= -o=<cr>
 xnoremap <leader>b !boxes -d parchment
+xnoremap <leader><leader>x :so<cr>
 xnoremap <leader>s !sort<cr>
 xnoremap <leader>S !sort --reverse<cr>
 xnoremap <leader>x !bash<cr>
 
-"statusline
-set statusline=
-set statusline+=%f                  " File
-set statusline+=%<                  " Where to start cutting if length is exceeded
-set statusline+=%w
-set statusline+=%m
-set statusline+=%r
-set statusline+=%=
-set statusline+=%{system('printf\ \"%s\"\ `whoami`')}
-set statusline+=::
-set statusline+=%{hostname()}
-if has_key(environ(), 'SSH_TTY')
-    set statusline+=\ via\ ssh
-    set statusline+=\                   " Separator
-endif
-if has_key(environ(), 'TMUX')
-    set statusline+=\ [
-    set statusline+=tmux
-    "set statusline+=system("tmux display-message -p '#S'")
-    set statusline+=]                    " Separator
-endif
-set statusline+=%=
-set statusline+=%y                  " Filetype of the file
-set statusline+=\ -\                " Separator
-set statusline+=%l,%c%V
-set statusline+=\                   " Separator
-set statusline+=%P
+"" statusline
+"set statusline=
+"set statusline+=%f                  " File
+"set statusline+=%<                  " Where to start cutting if length is exceeded
+"set statusline+=%w
+"set statusline+=%m
+"set statusline+=%r
+"set statusline+=%=
+"set statusline+=%{system('printf\ \"%s\"\ `whoami`')}
+"set statusline+=::
+"set statusline+=%{hostname()}
+"if has_key(environ(), 'SSH_TTY')
+"    set statusline+=\ via\ ssh
+"    set statusline+=\                   " Separator
+"endif
+"if has_key(environ(), 'TMUX')
+"    set statusline+=\ [
+"    set statusline+=tmux
+"    "set statusline+=system("tmux display-message -p '#S'")
+"    set statusline+=]                    " Separator
+"endif
+"set statusline+=%=
+"set statusline+=%y                  " Filetype of the file
+"set statusline+=\ -\                " Separator
+"set statusline+=%l,%c%V
+"set statusline+=\                   " Separator
+"set statusline+=%P

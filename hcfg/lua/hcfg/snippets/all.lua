@@ -26,6 +26,7 @@ end
 
 use("day", c(1, {
     mkdatenode('%F'),
+    mkdatenode('%Y%m%0d'),
     mkdatenode('%0d%b%Y'),
     mkdatenode('%0d %b %Y'),
     mkdatenode('%A, %B %0d, %Y'),
@@ -39,6 +40,7 @@ use("tim", c(1, {
 
 use("now", c(1, {
     mkdatenode('%F %H%M'),
+    mkdatenode('%F %H:%M:%S'),
     mkdatenode('%s'),
 }))
 
