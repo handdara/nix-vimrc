@@ -155,6 +155,13 @@ end
 
 -- fzf-lua setup {{{
 if foundFzfLua then
+    require("fzf-lua").setup { -- see `:help fzf-lua-customization` for more
+        winopts = {
+            preview = {
+                layout = "vertical"
+            }
+        },
+    }
     vim.cmd [[FzfLua register_ui_select]]
     vim.cmd [[nnoremap <leader>/ :FzfLua blines<cr>]]
     vim.cmd [[nnoremap <leader>gB :FzfLua git_blame<cr>]]
