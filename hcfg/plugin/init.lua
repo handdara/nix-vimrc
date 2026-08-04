@@ -200,7 +200,7 @@ end
 
 vim.cmd [[nnoremap <leader>ut :UndotreeShow<cr>]]
 
--- LSPs setup {{{
+-- blink and LSP setup {{{
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 if foundBlink then
     require 'blink.cmp'.setup {
@@ -209,7 +209,7 @@ if foundBlink then
         completion = {
             menu = {
                 -- auto_show = false,
-                auto_show_delay_ms = 1000,
+                auto_show_delay_ms = 250,
             }
         },
         keymap = {
