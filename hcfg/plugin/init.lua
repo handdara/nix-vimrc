@@ -242,13 +242,14 @@ vim.lsp.config('nil_ls', {
         },
     },
 })
-vim.lsp.config('lua_ls', { capabilities = capabilities })
-vim.lsp.config('fortls', { capabilities = capabilities })
 vim.lsp.config('bashls', { capabilities = capabilities })
+vim.lsp.config('fortls', { capabilities = capabilities })
 vim.lsp.config('hls', { capabilities = capabilities })
+vim.lsp.config('lua_ls', { capabilities = capabilities })
 vim.lsp.config('marksman', { capabilities = capabilities })
 vim.lsp.config('matlab_ls', { capabilities = capabilities })
 vim.lsp.config('ols', { capabilities = capabilities })
+vim.lsp.config('rust_analyzer', { capabilities = capabilities })
 vim.lsp.config('tinymist', {
     capabilities = capabilities,
     settings = {
@@ -257,7 +258,7 @@ vim.lsp.config('tinymist', {
         sematicTokens = "disable",
     },
 })
-vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', })
+vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', 'rust_analyzer', })
 -- LSPs setup }}}
 
 -- Luasnip setup {{{
