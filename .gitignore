@@ -7,3 +7,4 @@ result-*
 tags
 
 .nvimrc
+/repl-result-out
