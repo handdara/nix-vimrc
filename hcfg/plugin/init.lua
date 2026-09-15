@@ -13,6 +13,7 @@ local foundMiniFiles = pcall(function() require 'mini.files' end)
 local foundObsidian = pcall(function() require 'obsidian' end)
 local foundOil = pcall(function() require 'oil' end)
 local foundStache = pcall(function() vim.system({ 'stache', '--version' }):wait() end)
+local foundTreesitter = pcall(function() require 'nvim-treesitter' end)
 
 -- Gitsigns setup {{{
 if foundGitsigns and foundGit then
@@ -258,7 +259,8 @@ vim.lsp.config('tinymist', {
         sematicTokens = "disable",
     },
 })
-vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist', 'rust_analyzer', })
+vim.lsp.enable({ 'nil_ls', 'lua_ls', 'fortls', 'bashls', 'hls', 'marksman', 'matlab_ls', 'ols', 'tinymist',
+    'rust_analyzer', })
 -- LSPs setup }}}
 
 -- Luasnip setup {{{
@@ -409,6 +411,19 @@ if foundObsidian then
     }
 end
 -- obsidian-nvim setup }}}
+
+-- treesitter setup {{{
+if foundTreesitter then
+    require('nvim-treesitter').install({
+        'ada', 'agda', 'asm', 'awk', 'bash', 'bibtex', 'c', 'cmake', 'commonlisp', 'cpp', 'css', 'csv', 'cuda', 'diff',
+        'doxygen', 'fish', 'fortran', 'gitattributes', 'gitcommit', 'git_config', 'gitignore', 'git_rebase', 'glsl',
+        'gnuplot', 'go', 'gpg', 'haskell', 'hlsl', 'html', 'ini', 'java', 'javadoc', 'javascript', 'jq', 'json', 'julia',
+        'just', 'kdl', 'latex', 'llvm', 'lua', 'luadoc', 'make', 'markdown', 'markdown_inline', 'matlab', 'nix', 'odin',
+        'perl', 'printf', 'python', 'r', 'regex', 'ron', 'rust', 'sql', 'ssh_config', 'strace', 'supercollider', 'tcl',
+        'tmux', 'toml', 'typst', 'vim', 'vimdoc', 'wgsl', 'wgsl_bevy', 'xcompose', 'xml', 'xresources', 'yaml', 'zig',
+    })
+end
+-- }}}
 
 require 'hcfg.autocommands'
 require 'hcfg.commands'

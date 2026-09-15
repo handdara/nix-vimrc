@@ -1,62 +1,24 @@
-{
-  fetchFromGitHub,
-  fetchFromGitLab,
-  gcc,
-  gnumake,
-  lib,
-  luajitPackages,
-  makeWrapper,
-  neovim-unwrapped,
-  nodejs_22,
-  pkg-config,
-  python3,
-  runCommandLocal,
-  symlinkJoin,
-  version,
-  vimPlugins,
-  vimUtils,
-  extraLuaConfig ? "",
-  extraLuaPreConfig ? "",
+{ fetchFromGitHub
+, fetchFromGitLab
+, gcc
+, gnumake
+, lib
+, luajitPackages
+, makeWrapper
+, neovim-unwrapped
+, nodejs_22
+, pkg-config
+, python3
+, runCommandLocal
+, symlinkJoin
+, version
+, vimPlugins
+, vimUtils
+, extraLuaConfig ? ""
+, extraLuaPreConfig ? ""
+,
 }:
 let
-
-  tsParsers = with vimPlugins.nvim-treesitter-parsers; [
-    asm
-    gnuplot
-    perl
-    awk
-    haskell
-    python
-    bibtex
-    html
-    r
-    cmake
-    ini
-    regex
-    cpp
-    jq
-    rust
-    css
-    json
-    sql
-    csv
-    just
-    tcl
-    fish
-    kdl
-    tmux
-    fortran
-    latex
-    typst
-    gitcommit
-    luadoc
-    yaml
-    git_rebase
-    make
-    zig
-    gitignore
-    nix
-  ];
 
   colorthemes = with vimPlugins; [
     boo-colorscheme-nvim
@@ -101,7 +63,7 @@ let
     luasnip
     nvim-lspconfig
     nvim-surround
-    nvim-treesitter
+    nvim-treesitter.withAllGrammars
     nvim-web-devicons
     obsidian-nvim
     otter-nvim
@@ -109,7 +71,7 @@ let
     undotree
   ];
 
-  startPlugins = tsParsers ++ colorthemes ++ plugins;
+  startPlugins = colorthemes ++ plugins;
 
   packageName = "nix-vimrc-hcfg";
   packpath = runCommandLocal "packpath" { } ''
