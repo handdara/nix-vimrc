@@ -1,6 +1,6 @@
 let g:mapleader = " "
 let g:maplocalleader = " "
-set rnu nu lbr spr sb udf et nohls ic scs bri
+set bri cul et ic lbr nohls nu rnu sb scs spr udf
 if (has("termguicolors"))
   set termguicolors
 endif
