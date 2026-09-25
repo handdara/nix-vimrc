@@ -1,3 +1,4 @@
+set nocompatible
 let g:mapleader = " "
 let g:maplocalleader = " "
 set bri cul et ic lbr nohls nu rnu sb scs spr udf
