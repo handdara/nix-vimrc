@@ -1,22 +1,22 @@
-{ fetchFromGitHub
-, fetchFromGitLab
-, gcc
-, gnumake
-, lib
-, luajitPackages
-, makeWrapper
-, neovim-unwrapped
-, nodejs_22
-, pkg-config
-, python3
-, runCommandLocal
-, symlinkJoin
-, version
-, vimPlugins
-, vimUtils
-, extraLuaConfig ? ""
-, extraLuaPreConfig ? ""
-,
+{
+  fetchFromGitHub,
+  fetchFromGitLab,
+  gcc,
+  gnumake,
+  lib,
+  luajitPackages,
+  makeWrapper,
+  neovim-unwrapped,
+  nodejs_22,
+  pkg-config,
+  python3,
+  runCommandLocal,
+  symlinkJoin,
+  version,
+  vimPlugins,
+  vimUtils,
+  extraLuaConfig ? "",
+  extraLuaPreConfig ? "",
 }:
 let
 

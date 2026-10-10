@@ -1,7 +1,7 @@
 require 'hcfg-pre'
 
 require('vim._core.ui2').enable()
-vim.o.winborder = 'rounded' -- other opts: 'bold' 'double' '+,-,+,|,+,-,+,|'
+vim.o.winborder = '+,-,+,|,+,-,+,|' -- options: 'rounded' 'bold' 'double' '+,-,+,|,+,-,+,|'
 
 pcall(function() require('nvim-surround').setup {} end)
 local foundBlink = pcall(function() require 'blink.cmp' end)
@@ -149,8 +149,8 @@ if foundOil then
             },
         },
     })
-    vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[O]pen file browser' })
-    vim.keymap.set('n', '<leader>O', '<cmd>tabedit .<cr>', { desc = '[O]pen file browser in new tab' })
+    vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>', { desc = '[O]pen file browser' })
+    vim.keymap.set('n', '<leader>O', '<cmd>tab Oil<cr>', { desc = '[O]pen file browser in new tab' })
 end
 -- oil setup }}}
 
