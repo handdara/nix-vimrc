@@ -66,7 +66,7 @@ let
     nvim-treesitter.withAllGrammars
     nvim-web-devicons
     obsidian-nvim
-    otter-nvim
+    # otter-nvim
     plenary-nvim
     undotree
   ];

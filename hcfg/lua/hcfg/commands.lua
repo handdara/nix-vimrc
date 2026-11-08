@@ -12,6 +12,11 @@ vim.api.nvim_create_user_command('ClearBG', function()
     clrhl("Normal")
     clrhl("NormalNC")
 end, {})
+vim.api.nvim_create_user_command('TTYMode', function()
+    vim.cmd [[set notgc]]
+    vim.cmd [[set cole=0]]
+    vim.cmd [[colo elflord]]
+end, {})
 vim.api.nvim_create_user_command('Fdh',
     [[tab term fd -u '' ~ | fzf | xargs -rn1 dirname | xargs nvr]], {})
 vim.api.nvim_create_user_command('Format', function(_)
